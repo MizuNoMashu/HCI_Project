@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.hci.databinding.FragmentItemDescriptionBinding
 import com.google.android.material.button.MaterialButton
 
 
@@ -18,25 +16,23 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class Item_description : Fragment() {
-    //private var _binding: Fragment? = null
-    //private val binding get() = _binding!!
+    private var _binding: FragmentItemDescriptionBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val inf = inflater.inflate(R.layout.fragment_item_description, container, false)
         val bundle = this.arguments
-        //_binding = Item_description.inflate(inflater,container,false)
+        _binding = FragmentItemDescriptionBinding.inflate(inflater,container,false)
         if (bundle != null) {
-            //inf.
-            inf.findViewById<TextView>(R.id.item_name).text = bundle.getString("title")
-            inf.findViewById<TextView>(R.id.count_rating).text = bundle.getString("reviews")
-            inf.findViewById<TextView>(R.id.price).text = bundle.getString("price")
-            inf.findViewById<ImageView>(R.id.item_image).setImageResource(bundle.getInt("image"))
-            inf.findViewById<RatingBar>(R.id.stars).rating = bundle.getFloat("stars")
+            binding.itemName.text = bundle.getString("title")
+            binding.countRating.text = bundle.getString("reviews")
+            binding.price.text = bundle.getString("price")
+            binding.itemImage.setImageResource(bundle.getInt("image"))
+            binding.stars.rating = bundle.getFloat("stars")
         }
 
-        val quantityButton = inf.findViewById<MaterialButton>(R.id.item_quantity)
+        val quantityButton = binding.itemQuantity
 
         quantityButton.setOnClickListener {
             val x = android.app.Dialog(requireContext())
@@ -46,10 +42,10 @@ class Item_description : Fragment() {
                 x.dismiss()
             }
 
-            //x.window?.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+         
         }
 
-        return inf.rootView
+        return binding.root
     }
 
 }
