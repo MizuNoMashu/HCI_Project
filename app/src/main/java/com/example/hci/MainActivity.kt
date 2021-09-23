@@ -1,9 +1,15 @@
 package com.example.hci
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import com.example.hci.databinding.ActivityMainBinding
+
+@SuppressLint("StaticFieldLeak")
+var ldb: DBHelper? = null
+
+var logged_user: User? = null
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mainBinding : ActivityMainBinding
@@ -27,6 +33,8 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
+        ldb = DBHelper(this)
+        ldb?.insert("ciao@ok.oi", "Giacomino", "Prova", "ciaociao", "via prova 123", "33344455566")
     }
 
 }
