@@ -43,7 +43,6 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
             }while (cursor.moveToNext())
         }
         cursor.close()
-        //db.close()
         return ret
     }
 
@@ -57,19 +56,16 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         } catch (e: Exception){
             return 1
         }
-        //db.close()
         return 0
     }
 
     fun select(nemail: String): User? {
         val db = this.readableDatabase
-        //var ret = ""
         val usr: User
         val cursor = db.rawQuery("SELECT * FROM '${table_name}' WHERE email == '${nemail}'", null)
         when(cursor.count){
             0 -> {
                 cursor.close()
-                //db.close()
                 return null
             }
             1 -> {
@@ -78,21 +74,29 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
                     name_name)), cursor.getString(cursor.getColumnIndex(
                     surname_name)), cursor.getString(cursor.getColumnIndex(password_name)), cursor.getString(cursor.getColumnIndex(address_name)), cursor.getString(cursor.getColumnIndex(
                     phone_name)))
-                /*ret += cursor.getString(cursor.getColumnIndex(id_name))+" "
-                ret += cursor.getString(cursor.getColumnIndex(email_name))+" "
-                ret += cursor.getString(cursor.getColumnIndex(name_name))+" "
-                ret += cursor.getString(cursor.getColumnIndex(password_name))+"\n"*/
-                //ret = usr
             }
             else ->{
                 cursor.close()
-                //db.close()
                 return null
             }
         }
         cursor.close()
-        //db.close()
         return usr
+    }
+
+    fun update(uemail: String, uname: String, usurname: String, uaddress: String, uphone: String){
+        val db = this.readableDatabase
+        val query = "UPDATE '${table_name}' SET '${name_name}' = '${uname}', '${surname_name}' = '${usurname}', '${address_name}' = '${uaddress}'," +
+                " '${phone_name}' = '${uphone}'  WHERE '${email_name}' = '${uemail}';"
+        val cursor = db.rawQuery(query, null)
+        cursor.close()
+    }
+
+    fun remove(remail: String){
+        val db = this.readableDatabase
+        val query = "DELETE FROM '${table_name}' WHERE '${email_name}' = '${remail}'"
+        val cursor = db.rawQuery(query, null)
+        cursor.close()
     }
 
     companion object{

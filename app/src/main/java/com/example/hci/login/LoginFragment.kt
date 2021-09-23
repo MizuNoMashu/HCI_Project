@@ -75,7 +75,7 @@ class LoginFragment : Fragment() {
                 else showLoginFailed()
             }
         }
-        val appContext = context?.applicationContext ?: return
+        //val appContext = context?.applicationContext ?: return
         binding.frgpw.setOnClickListener {
             showDefaultDialog()
             //NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_scroll_products)
@@ -101,7 +101,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun showLoginFailed() {
-        val appContext = context?.applicationContext ?: return
+        //val appContext = context?.applicationContext ?: return
         //val toast0 = Toast.makeText(appContext, "Error login", Toast.LENGTH_LONG)
         //toast0.show()
         val errtxt = binding.errorText

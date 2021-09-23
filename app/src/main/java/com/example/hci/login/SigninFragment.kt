@@ -65,7 +65,7 @@ class SigninFragment : Fragment() {
             } else if(passwordText.length < 5 || password2Text.length < 5){
                 showInvalidPassword()
             } else if (passwordText != password2Text){
-                showPasswordMissmatch()
+                showPasswordMismatch()
             } else {
                 val ret = ldb?.insert(emailText, nameText, surnameText, passwordText, addressText, phoneText)
                 if(ret == 0){
@@ -97,7 +97,7 @@ class SigninFragment : Fragment() {
         displayMsg("Password must have min 5 char")
     }
 
-    private fun showPasswordMissmatch(){
+    private fun showPasswordMismatch(){
         displayMsg("Passwords don't coincide")
     }
 
@@ -107,7 +107,7 @@ class SigninFragment : Fragment() {
     }
 
     private fun displayMsg(str: String){
-        val appContext = context?.applicationContext ?: return
+        //val appContext = context?.applicationContext ?: return
         //Toast.makeText(appContext, str, Toast.LENGTH_LONG).show()
         val errtxt = binding.errorTexts
         errtxt.text = str

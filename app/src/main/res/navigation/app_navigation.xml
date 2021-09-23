@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_scroll_products_to_settings2"
             app:destination="@id/settings" />
+        <action
+            android:id="@+id/action_scroll_products_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
