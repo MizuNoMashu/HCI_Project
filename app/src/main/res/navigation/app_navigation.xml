@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/scroll_products">
+    <fragment
+        android:id="@+id/scroll_products"
+        android:name="com.example.hci.Scroll_products"
+        android:label="Scroll_products"
+        tools:layout="@layout/fragment_scroll_products">
+        <action
+            android:id="@+id/action_scroll_products_to_item_description"
+            app:destination="@id/item_description" />
+        <action
+            android:id="@+id/action_scroll_products_to_settings2"
+            app:destination="@id/settings" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/item_description"
+        android:name="com.example.hci.Item_description"
+        android:label="item_description"
+        tools:layout="@layout/fragment_item_description">
+        <action
+            android:id="@+id/action_item_description_to_scroll_products"
+            app:destination="@id/scroll_products" />
+        <action
+            android:id="@+id/action_item_description_to_settings2"
+            app:destination="@id/settings" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.hci.Settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settings2_to_scroll_products"
+            app:destination="@id/scroll_products" />
+        <action
+            android:id="@+id/action_settings2_to_item_description"
+            app:destination="@id/item_description" />
+        <action
+            android:id="@+id/action_settings_to_profile2"
+            app:destination="@id/profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.hci.Profile"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profile2_to_settings"
+            app:destination="@id/settings" />
+        <action
+            android:id="@+id/action_profile2_to_scroll_products"
+            app:destination="@id/scroll_products" />
+        <action
+            android:id="@+id/action_profile2_to_item_description"
+            app:destination="@id/item_description" />
+    </fragment>
+</navigation>
