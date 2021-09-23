@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_navigation"
-    app:startDestination="@id/scroll_products">
+    app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/scroll_products"
         android:name="com.example.hci.Scroll_products"
