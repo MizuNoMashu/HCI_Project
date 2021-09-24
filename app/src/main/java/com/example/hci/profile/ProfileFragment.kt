@@ -1,9 +1,7 @@
 package com.example.hci.profile
 
-import android.app.Activity.RESULT_OK
+
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -16,6 +14,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.example.hci.databinding.FragmentProfileBinding
 import java.io.ByteArrayOutputStream
@@ -28,17 +29,16 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var button: Button
     private lateinit var imageView: ImageView
-    private var imageToStore: Bitmap? = null
+    private var mGetContent: ActivityResultLauncher<String>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("TAG","onCreate: called")
         super.onCreate(savedInstanceState)
     }
-    companion object{
-        val IMAGE_REQUEST_CODE = 100
 
-    }
+    //var IMAGE_REQUEST_CODE = 100
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,11 +50,24 @@ class ProfileFragment : Fragment() {
         val root: View = binding.root
         // inizio funzioni
         loadData()
+
         imageView = binding.imageView
         button = binding.imgPickBtn
 
+        val getAction = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            val bitmap=it?.data?.extras?.get("data") as Bitmap
+            imageView.setImageBitmap(bitmap)
+        }
+        val getImage = registerForActivityResult(ActivityResultContracts.GetContent(),
+            ActivityResultCallback {
+                binding.imageView.setImageURI(it)
+                saveImage()
+            })
+
         button.setOnClickListener{
-            pickImageGallery()
+            //val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE) //   camera
+            // getAction.launch(intent)
+            getImage.launch("image/*")
         }
         binding.edit.setOnClickListener{
             binding.nameEdit.isEnabled=true
@@ -74,22 +87,36 @@ class ProfileFragment : Fragment() {
          }
         return root
     }
+    // get a variable
 
 
 
-    private fun pickImageGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_REQUEST_CODE)
 
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+   /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK){
 
             imageView.setImageURI(data?.data)
 
         }
+    }*/
+
+    private fun saveImage() {
+        val context: Context? = activity
+        val sharedPreferences = context!!.getSharedPreferences("sharedPrefers",
+            Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val encodedImage = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT)
+
+        editor.apply{
+            putString("IMAGE_KEY", encodedImage)
+        }.apply()
+        Toast.makeText( activity, "saved image", Toast.LENGTH_SHORT).show()
+
     }
 
     private fun saveData() {
@@ -101,17 +128,10 @@ class ProfileFragment : Fragment() {
         val phonetext: String = binding.phoneEdit.text.toString()
         Log.d("saved Data:",nametext)
 
-
         val context: Context? = activity
         val sharedPreferences = context!!.getSharedPreferences("sharedPrefers",
             Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-
-        // image encoder
-        val bitmap = (imageView.drawable as BitmapDrawable).bitmap
-        val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        val encodedImage = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT)
 
         //save data
         editor.apply{
@@ -120,7 +140,7 @@ class ProfileFragment : Fragment() {
             putString("ADDRESS_KEY",addresstext)
             putString("EMAIL_KEY",emailtext)
             putString("PHONE_KEY",phonetext)
-            putString("IMAGE_KEY", encodedImage)
+
 
         }.apply()
         Toast.makeText( activity, "saved data", Toast.LENGTH_SHORT).show()
@@ -157,19 +177,6 @@ class ProfileFragment : Fragment() {
         binding.phoneEdit.setText(phoneString)
     }
 
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (IMAGE_REQUEST_CODE == IMAGE_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            pickImageGallery()
-        }else{
-            Toast.makeText(activity,"permission denied",Toast.LENGTH_SHORT).show()
-        }
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
