@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/scroll_products"
-        android:name="com.example.hci.Scroll_products"
+        android:name="com.example.hci.ScrollProductsFragment"
         android:label="Scroll_products"
         tools:layout="@layout/fragment_scroll_products">
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/profile"
-        android:name="com.example.hci.Profile"
+        android:name="com.example.hci.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile">
         <action

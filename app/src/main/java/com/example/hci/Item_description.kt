@@ -42,7 +42,7 @@ class Item_description : Fragment() {
                 x.dismiss()
             }
 
-         
+
         }
 
         return binding.root

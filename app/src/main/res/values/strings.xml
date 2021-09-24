@@ -13,4 +13,10 @@
     <string name="login_failed">"Login failed"</string>
     <string name="name">Name</string>
     <string name="confirm_password">Confirm password</string>
+    <string name="name_edit">Name Edit</string>
+    <string name="surname_edit">Surname Edit</string>
+    <string name="address_edit">Address Edit</string>
+    <string name="email_edit">Email Edit</string>
+    <string name="phone_edit">Phone Edit</string>
+
 </resources>
