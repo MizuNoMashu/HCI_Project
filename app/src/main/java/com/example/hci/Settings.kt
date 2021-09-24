@@ -17,8 +17,14 @@ class Settings : Fragment() {
         //val bundle = this.arguments
 
         inf.findViewById<MaterialButton>(R.id.button_profile).setOnClickListener{
-            Navigation.findNavController(inf).navigate(R.id.profile)
+            Navigation.findNavController(inf).navigate(R.id.action_settings_to_profile2)
         }
+
+        inf.findViewById<MaterialButton>(R.id.logout_button).setOnClickListener {
+            logged_user = null
+            Navigation.findNavController(inf).navigate(R.id.action_settings_to_loginFragment)
+        }
+
         return inf.rootView
     }
 }
