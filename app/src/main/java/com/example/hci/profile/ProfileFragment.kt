@@ -78,13 +78,13 @@ class ProfileFragment : Fragment() {
 
         }
         binding.done.setOnClickListener{
-             saveData()
+            saveData()
             binding.nameEdit.isEnabled = false
             binding.surnameEdit.isEnabled= false
             binding.addressEdit.isEnabled =false
             binding.emaiEdit.isEnabled = false
             binding.phoneEdit.isEnabled=false
-         }
+        }
         return root
     }
     // get a variable
@@ -92,14 +92,14 @@ class ProfileFragment : Fragment() {
 
 
 
-   /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK){
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+         super.onActivityResult(requestCode, resultCode, data)
+         if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK){
 
-            imageView.setImageURI(data?.data)
+             imageView.setImageURI(data?.data)
 
-        }
-    }*/
+         }
+     }*/
 
     private fun saveImage() {
         val context: Context? = activity
