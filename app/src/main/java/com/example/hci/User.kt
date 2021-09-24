@@ -10,7 +10,6 @@ class User(nid: String, nemail: String, nname: String, nsurname: String, npasswo
     val phone = nphone
 
     override fun toString(): String {
-        return "User(id='$id', email='$email', name='$name', password='$password')"
+        return "User(id='$id', email='$email', name='$name', surname='$surname', password='$password', address='$address', phone='$phone')"
     }
-
 }

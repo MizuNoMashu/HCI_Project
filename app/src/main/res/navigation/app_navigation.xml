@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_settings_to_profile2"
             app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_settings_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/profile"
@@ -58,9 +61,6 @@
         <action
             android:id="@+id/action_profile2_to_scroll_products"
             app:destination="@id/scroll_products" />
-        <action
-            android:id="@+id/action_profile2_to_item_description"
-            app:destination="@id/item_description" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
