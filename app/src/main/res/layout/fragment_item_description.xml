@@ -5,101 +5,105 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ScrollProductsFragment">
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/vendor_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vendor name" />
-
-        <TextView
-            android:id="@+id/item_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Product Name"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
-
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RatingBar
-                android:id="@+id/stars"
-                style="@style/Widget.AppCompat.RatingBar.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:stepSize="0.5" />
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/count_rating"
+                android:id="@+id/vendor_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:text="100" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/item_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:text="Vendor name" />
 
             <TextView
-                android:id="@+id/price_fixed"
+                android:id="@+id/item_name"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Price:"
-                />
+                android:layout_height="wrap_content"
+                android:text="Product Name"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RatingBar
+                    android:id="@+id/stars"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="0.5" />
+
+                <TextView
+                    android:id="@+id/count_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="100" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/item_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/price_fixed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Price:"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/price"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:text="Text button"
+                    android:textSize="15dp"
+                    app:icon="@drawable/ic_baseline_euro_24"
+                    app:iconGravity="textEnd" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/item_quantity"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:text="Qty: 1"
+                    android:textSize="15dp"
+                    app:icon="@drawable/ic_baseline_keyboard_arrow_down_24"
+                    app:iconGravity="textEnd" />
+
+            </LinearLayout>
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/price"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:id="@+id/add_to_cart"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:clickable="false"
-                android:text="Text button"
-                android:textSize="15dp"
-                app:icon="@drawable/ic_baseline_euro_24"
-                app:iconGravity="textEnd" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/item_quantity"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:text="Qty: 1"
-                android:textSize="15dp"
-                app:icon="@drawable/ic_baseline_keyboard_arrow_down_24"
-                app:iconGravity="textEnd" />
-
+                android:layout_height="wrap_content"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="Add to cart"/>
         </LinearLayout>
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/add_to_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="Add to cart"/>
-    </LinearLayout>
+    </ScrollView>
+
 
 </FrameLayout>
