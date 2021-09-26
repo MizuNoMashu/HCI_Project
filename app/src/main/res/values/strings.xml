@@ -19,4 +19,7 @@
     <string name="email_edit">Email Edit</string>
     <string name="phone_edit">Phone Edit</string>
 
+    <string name="favorite" />
+    <string name="send_Btn">Send</string>
+    <string name="clear_btn">clear</string>
 </resources>

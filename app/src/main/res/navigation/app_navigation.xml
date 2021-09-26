@@ -48,8 +48,10 @@
             app:destination="@id/profile" />
         <action
             android:id="@+id/action_settings_to_loginFragment"
-            app:destination="@id/loginFragment"
-            />
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_settings_to_messagesFragment"
+            app:destination="@id/messagesFragment" />
     </fragment>
     <fragment
         android:id="@+id/profile"
@@ -86,5 +88,24 @@
         <action
             android:id="@+id/action_signinFragment_to_scroll_products"
             app:destination="@id/scroll_products" />
+    </fragment>
+    <fragment
+        android:id="@+id/messages"
+        android:name="com.example.myapplication.ui.messages.Messages"
+        android:label="Messages" >
+        <action
+            android:id="@+id/action_messages_to_messagesFragment"
+            app:destination="@id/messagesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.example.myapplication.ui.messages.MessagesFragment"
+        android:label="MessagesFragment" >
+        <action
+            android:id="@+id/action_messagesFragment_to_settings"
+            app:destination="@id/settings" />
+        <action
+            android:id="@+id/action_messagesFragment_to_messages"
+            app:destination="@id/messages" />
     </fragment>
 </navigation>

@@ -69,5 +69,6 @@ dependencies {
     // Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
-
+    //imageview style
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
