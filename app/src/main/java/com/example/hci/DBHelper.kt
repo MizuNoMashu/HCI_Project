@@ -85,18 +85,16 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
     }
 
     fun update(uemail: String, uname: String, usurname: String, uaddress: String, uphone: String){
-        val db = this.readableDatabase
-        val query = "UPDATE '${table_name}' SET '${name_name}' = '${uname}', '${surname_name}' = '${usurname}', '${address_name}' = '${uaddress}'," +
-                " '${phone_name}' = '${uphone}'  WHERE '${email_name}' = '${uemail}';"
-        val cursor = db.rawQuery(query, null)
-        cursor.close()
+        val db = this.writableDatabase
+        val query = "UPDATE '${table_name}' SET ${name_name} = '${uname}', ${surname_name} = '${usurname}', ${address_name} = '${uaddress}'," +
+                " ${phone_name} = '${uphone}'  WHERE ${email_name} = '${uemail}';"
+        db.execSQL(query)
     }
 
     fun remove(remail: String){
         val db = this.readableDatabase
         val query = "DELETE FROM '${table_name}' WHERE '${email_name}' = '${remail}'"
-        val cursor = db.rawQuery(query, null)
-        cursor.close()
+        db.execSQL(query)
     }
 
     companion object{

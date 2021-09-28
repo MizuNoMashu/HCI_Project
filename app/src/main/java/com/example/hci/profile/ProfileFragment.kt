@@ -19,6 +19,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.example.hci.databinding.FragmentProfileBinding
+import com.example.hci.ldb
+import com.example.hci.logged_user
 import java.io.ByteArrayOutputStream
 
 
@@ -128,7 +130,7 @@ class ProfileFragment : Fragment() {
         val phonetext: String = binding.phoneEdit.text.toString()
         Log.d("saved Data:",nametext)
 
-        val context: Context? = activity
+        /*val context: Context? = activity
         val sharedPreferences = context!!.getSharedPreferences("sharedPrefers",
             Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -140,9 +142,10 @@ class ProfileFragment : Fragment() {
             putString("ADDRESS_KEY",addresstext)
             putString("EMAIL_KEY",emailtext)
             putString("PHONE_KEY",phonetext)
+        }.apply()*/
 
+        logged_user?.email?.let { ldb?.update(it, nametext, surnametext, addresstext, phonetext ) }
 
-        }.apply()
         Toast.makeText( activity, "saved data", Toast.LENGTH_SHORT).show()
 
     }
@@ -155,11 +158,11 @@ class ProfileFragment : Fragment() {
         val sharedPreferences = context!!.getSharedPreferences("sharedPrefers",
             Context.MODE_PRIVATE)
 
-        val nameString = sharedPreferences.getString("NAME_KEY",null)
+        /*val nameString = sharedPreferences.getString("NAME_KEY",null)
         val surnameString = sharedPreferences.getString("SURNAME_KEY",null)
         val addressString = sharedPreferences.getString("ADDRESS_KEY",null)
         val emailString = sharedPreferences.getString("EMAIL_KEY",null)
-        val phoneString = sharedPreferences.getString("PHONE_KEY",null)
+        val phoneString = sharedPreferences.getString("PHONE_KEY",null)*/
 
         val encodedImage = sharedPreferences.getString("IMAGE_KEY","DEFAULT")
 
@@ -169,12 +172,19 @@ class ProfileFragment : Fragment() {
             binding.imageView.setImageBitmap(decodedImage)
         }
 
+        //logged_user?.email?.let { ldb?.select(it) }
 
-        binding.nameEdit.setText(nameString)
+        /*binding.nameEdit.setText(nameString)
         binding.surnameEdit.setText(surnameString)
         binding.addressEdit.setText(addressString)
         binding.emaiEdit.setText(emailString)
-        binding.phoneEdit.setText(phoneString)
+        binding.phoneEdit.setText(phoneString)*/
+
+        binding.nameEdit.setText(logged_user?.name)
+        binding.surnameEdit.setText(logged_user?.surname)
+        binding.addressEdit.setText(logged_user?.address)
+        binding.emaiEdit.setText(logged_user?.email)
+        binding.phoneEdit.setText(logged_user?.phone)
     }
 
     override fun onDestroyView() {
