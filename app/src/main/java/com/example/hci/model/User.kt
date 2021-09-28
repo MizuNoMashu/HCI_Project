@@ -1,4 +1,4 @@
-package com.example.hci
+package com.example.hci.model
 
 class User(nid: String, nemail: String, nname: String, nsurname: String, npassword: String, naddress: String, nphone: String) {
     val id  = nid

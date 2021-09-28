@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.messages
+package com.example.hci.messages
 
 
 
@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.hci.R
 import com.example.hci.databinding.FragmentMessagesBinding
-
 
 
 class MessagesFragment : Fragment() {
@@ -40,7 +39,7 @@ class MessagesFragment : Fragment() {
         var list = mutableListOf<Model>()
 
         list.add(Model("Facebook","facebook description", R.drawable.meinv))
-        list.add(Model("Facebook","facebook description",R.drawable.meinv))
+        list.add(Model("Instagram","facebook description",R.drawable.meinv))
         list.add(Model("Facebook","facebook description",R.drawable.meinv))
         list.add(Model("Facebook","facebook description",R.drawable.meinv))
         list.add(Model("Facebook","facebook description",R.drawable.meinv))
@@ -58,6 +57,7 @@ class MessagesFragment : Fragment() {
                 Toast.makeText(context, "click on 0", Toast.LENGTH_SHORT).show()
             }
             if (position==1){
+                Navigation.findNavController(view).navigate(R.id.messages)
                 Toast.makeText(context, "click on 1", Toast.LENGTH_SHORT).show()
             }
             if (position==2){

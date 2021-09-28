@@ -69,7 +69,7 @@ class SigninFragment : Fragment() {
             } else {
                 val ret = ldb?.insert_user(emailText, nameText, surnameText, passwordText, addressText, phoneText)
                 if(ret == 0){
-                    logged_user = ldb?.select(emailText)
+                    logged_user = ldb?.select_user(emailText)
                     NavHostFragment.findNavController(this).navigate(R.id.action_signinFragment_to_scroll_products)
                 } else{
                     showSigninFailed()

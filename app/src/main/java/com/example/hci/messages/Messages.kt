@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.messages
+package com.example.hci.messages
 
 
 import android.content.Context

@@ -11,10 +11,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.hci.R
-import com.example.hci.User
 import com.example.hci.databinding.FragmentLoginBinding
 import com.example.hci.ldb
 import com.example.hci.logged_user
+import com.example.hci.model.User
 
 
 class LoginFragment : Fragment() {
@@ -51,7 +51,7 @@ class LoginFragment : Fragment() {
         binding.errorText.visibility = View.GONE
 
         loginButton.setOnClickListener {
-            val ret = ldb?.select(usernameEditText.text.toString())
+            val ret = ldb?.select_user(usernameEditText.text.toString())
             if(ret == null){
                 showLoginFailed()
             } else{
@@ -65,7 +65,7 @@ class LoginFragment : Fragment() {
             NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_signinFragment)
         }
         googleButton.setOnClickListener {
-            val ret = ldb?.select("ciao@ok.oi")
+            val ret = ldb?.select_user("ciao@ok.oi")
             if(ret == null){
                 showLoginFailed()
             } else{

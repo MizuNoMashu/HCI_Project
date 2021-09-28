@@ -3,6 +3,8 @@ package com.example.hci
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.hci.model.Product
+import com.example.hci.model.User
 
 class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, null, 1) {
 
@@ -112,7 +114,21 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         return 0
     }
 
-    fun select(nemail: String): User? {
+    fun select_product(): MutableList<Product> {
+        val db = this.readableDatabase
+        val prodList: MutableList<Product> = ArrayList()
+        val cursor = db.rawQuery("SELECT * FROM '${table_product}' ORDER BY '${review_product}' ASC,'${rating_product}' ASC LIMIT 10" , null)
+        var prod : Product
+        while(cursor.moveToNext()){
+            prod = Product(cursor.getInt(0),cursor.getString(1),cursor.getString(2)
+                ,cursor.getFloat(3),cursor.getInt(4),cursor.getFloat(5),cursor.getInt(6))
+            prodList.add(prod)
+        }
+        return prodList
+    }
+
+
+    fun select_user(nemail: String): User? {
         val db = this.readableDatabase
         val usr: User
         val cursor = db.rawQuery("SELECT * FROM '${table_user}' WHERE email == '${nemail}'", null)
@@ -175,7 +191,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
     }
 
     fun remove(remail: String){
-        val db = this.writableDatabase
+        val db = this.readableDatabase
         val query = "DELETE FROM '${table_user}' WHERE '${email_user}' = '${remail}'"
         db.execSQL(query)
     }

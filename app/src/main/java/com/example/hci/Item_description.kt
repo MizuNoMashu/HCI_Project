@@ -62,6 +62,9 @@ class Item_description : Fragment() {
                 binding.itemQuantity.text =  temp
                 x.dismiss()
             }
+        }
+
+        binding.addToCart.setOnClickListener{
 
         }
 
