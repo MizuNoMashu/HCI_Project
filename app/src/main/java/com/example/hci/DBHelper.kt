@@ -15,7 +15,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
                 "'${password_user}' TEXT NOT NULL," +
                 "'${address_user}' TEXT NOT NULL," +
                 "'${phone_user}' TEXT NOT NULL," +
-                "'${image_user}' INTEGER," +
+                "'${image_user}' TEXT," +
                 "UNIQUE (${email_user}))"
 
         //db.execSQL("DROP TABLE IF EXISTS '${table_user}'" )
@@ -139,6 +139,28 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         return usr
     }
 
+    fun getImage(nemail: String): String? {
+        val db = this.readableDatabase
+        val ret: String?
+        val cursor = db.rawQuery("SELECT ${image_user} FROM '${table_user}' WHERE email == '${nemail}'", null)
+        when(cursor.count){
+            0 -> {
+                cursor.close()
+                return null
+            }
+            1 -> {
+                cursor.moveToFirst()
+                ret = cursor.getString(cursor.getColumnIndex(image_user))
+            }
+            else ->{
+                cursor.close()
+                return null
+            }
+        }
+        cursor.close()
+        return ret
+    }
+
     fun update(uemail: String, uname: String, usurname: String, uaddress: String, uphone: String){
         val db = this.writableDatabase
         val query = "UPDATE '${table_user}' SET ${name_user} = '${uname}', ${surname_user} = '${usurname}', ${address_user} = '${uaddress}'," +
@@ -146,8 +168,14 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         db.execSQL(query)
     }
 
+    fun updateImage(uemail: String, image: String){
+        val db = this.writableDatabase
+        val query = "UPDATE '${table_user}' SET ${image_user} = '${image}' WHERE ${email_user} = '${uemail}';"
+        db.execSQL(query)
+    }
+
     fun remove(remail: String){
-        val db = this.readableDatabase
+        val db = this.writableDatabase
         val query = "DELETE FROM '${table_user}' WHERE '${email_user}' = '${remail}'"
         db.execSQL(query)
     }

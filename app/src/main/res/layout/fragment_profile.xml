@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +11,6 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="16dp"
@@ -82,94 +82,104 @@
         </ScrollView>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scrollView1">
 
 
-
             <EditText
                 android:id="@+id/nameEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
                 android:enabled="false"
                 android:hint="@string/name_edit"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"/>
+                android:inputType="text" />
 
 
             <EditText
                 android:id="@+id/surnameEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:layout_marginBottom="8dp"
                 android:enabled="false"
                 android:hint="@string/surname_edit"
-                android:layout_marginBottom="8dp"/>
-
+                android:inputType="text" />
 
 
             <EditText
                 android:id="@+id/addressEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:layout_marginBottom="8dp"
                 android:enabled="false"
                 android:hint="@string/address_edit"
-                android:layout_marginBottom="8dp"/>
+                android:inputType="text" />
 
 
             <EditText
                 android:id="@+id/emaiEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:layout_marginBottom="8dp"
                 android:enabled="false"
                 android:hint="@string/email_edit"
-                android:layout_marginBottom="8dp"/>
+                android:inputType="text" />
 
 
             <EditText
                 android:id="@+id/phoneEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:imeOptions="actionDone"
+                android:layout_marginBottom="8dp"
                 android:enabled="false"
                 android:hint="@string/phone_edit"
-                android:layout_marginBottom="8dp"/>
+                android:imeOptions="actionDone"
+                android:inputType="phone" />
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:overScrollMode="ifContentScrolls">
+        </LinearLayout>
 
-                <Button
-                    android:id="@+id/edit"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="200dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="0dp"
-                    android:text="Edit"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:cornerRadius="8dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:overScrollMode="ifContentScrolls"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-                <Button
-                    android:id="@+id/done"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="done"
-                    app:backgroundTint="@color/black" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/edit"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:text="Edit"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:cornerRadius="8dp" />
+
+            <Button
+                android:id="@+id/done"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="done"
+                android:textSize="12sp"
+                app:backgroundTint="@color/black" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -111,11 +111,12 @@ class ProfileFragment : Fragment() {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
         val encodedImage = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT)
 
-        editor.apply{
+        /*editor.apply{
             putString("IMAGE_KEY", encodedImage)
-        }.apply()
+        }.apply()*/
 
-        //ldb?.updateImage(logged_user?.email, encodedImage)
+        logged_user?.email?.let { ldb?.updateImage(it, encodedImage) }
+
         Toast.makeText( activity, "saved image", Toast.LENGTH_SHORT).show()
 
     }
@@ -161,7 +162,7 @@ class ProfileFragment : Fragment() {
         val surnameString = sharedPreferences.getString("SURNAME_KEY",null)
         val addressString = sharedPreferences.getString("ADDRESS_KEY",null)
         val emailString = sharedPreferences.getString("EMAIL_KEY",null)
-        val phoneString = sharedPreferences.getString("PHONE_KEY",null)*/
+        val phoneString = sharedPreferences.getString("PHONE_KEY",null)
 
         val encodedImage = sharedPreferences.getString("IMAGE_KEY","DEFAULT")
 
@@ -169,9 +170,15 @@ class ProfileFragment : Fragment() {
             val imageBytes = Base64.decode(encodedImage, Base64.DEFAULT)
             val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
             binding.imageView.setImageBitmap(decodedImage)
-        }
+        }*/
 
         //chiamata al DB per recuperare l'immagine e scrittura in imageView
+        val img = logged_user?.email?.let { ldb?.getImage(it) }
+        if (img != null) {
+            val imageBytes = Base64.decode(img, Base64.DEFAULT)
+            val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            binding.imageView.setImageBitmap(decodedImage)
+        }
 
         binding.nameEdit.setText(logged_user?.name)
         binding.surnameEdit.setText(logged_user?.surname)
