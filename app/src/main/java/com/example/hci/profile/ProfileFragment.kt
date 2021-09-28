@@ -91,9 +91,6 @@ class ProfileFragment : Fragment() {
     }
     // get a variable
 
-
-
-
     /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
          super.onActivityResult(requestCode, resultCode, data)
          if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK){
@@ -117,6 +114,8 @@ class ProfileFragment : Fragment() {
         editor.apply{
             putString("IMAGE_KEY", encodedImage)
         }.apply()
+
+        //ldb?.updateImage(logged_user?.email, encodedImage)
         Toast.makeText( activity, "saved image", Toast.LENGTH_SHORT).show()
 
     }
@@ -172,13 +171,7 @@ class ProfileFragment : Fragment() {
             binding.imageView.setImageBitmap(decodedImage)
         }
 
-        //logged_user?.email?.let { ldb?.select(it) }
-
-        /*binding.nameEdit.setText(nameString)
-        binding.surnameEdit.setText(surnameString)
-        binding.addressEdit.setText(addressString)
-        binding.emaiEdit.setText(emailString)
-        binding.phoneEdit.setText(phoneString)*/
+        //chiamata al DB per recuperare l'immagine e scrittura in imageView
 
         binding.nameEdit.setText(logged_user?.name)
         binding.surnameEdit.setText(logged_user?.surname)

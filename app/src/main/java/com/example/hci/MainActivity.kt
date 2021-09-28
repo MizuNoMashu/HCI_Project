@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             false
         }
         ldb = DBHelper(this)
-        ldb?.insert("ciao@ok.oi", "Giacomino", "Prova", "ciaociao", "via prova 123", "33344455566")
+        ldb?.insert_user("ciao@ok.oi", "Giacomino", "Prova", "ciaociao", "via prova 123", "33344455566")
     }
 
 }

@@ -67,7 +67,7 @@ class SigninFragment : Fragment() {
             } else if (passwordText != password2Text){
                 showPasswordMismatch()
             } else {
-                val ret = ldb?.insert(emailText, nameText, surnameText, passwordText, addressText, phoneText)
+                val ret = ldb?.insert_user(emailText, nameText, surnameText, passwordText, addressText, phoneText)
                 if(ret == 0){
                     logged_user = ldb?.select(emailText)
                     NavHostFragment.findNavController(this).navigate(R.id.action_signinFragment_to_scroll_products)

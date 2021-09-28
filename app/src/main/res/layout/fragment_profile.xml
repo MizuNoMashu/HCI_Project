@@ -4,15 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Settings">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp">
 
         <ScrollView
             android:id="@+id/scrollView1"
-            android:layout_width="417dp"
-            android:layout_height="260dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/ic_baseline_home_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +97,9 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:enabled="false"
-                android:hint="@string/name_edit" />
+                android:hint="@string/name_edit"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"/>
 
 
             <EditText
@@ -97,7 +108,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:enabled="false"
-                android:hint="@string/surname_edit" />
+                android:hint="@string/surname_edit"
+                android:layout_marginBottom="8dp"/>
 
 
 
@@ -107,7 +119,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:enabled="false"
-                android:hint="@string/address_edit" />
+                android:hint="@string/address_edit"
+                android:layout_marginBottom="8dp"/>
 
 
             <EditText
@@ -116,23 +129,26 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:enabled="false"
-                android:hint="@string/email_edit" />
+                android:hint="@string/email_edit"
+                android:layout_marginBottom="8dp"/>
 
 
             <EditText
                 android:id="@+id/phoneEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="phone"
                 android:imeOptions="actionDone"
                 android:enabled="false"
-                android:hint="@string/phone_edit" />
+                android:hint="@string/phone_edit"
+                android:layout_marginBottom="8dp"/>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:overScrollMode="ifContentScrolls">
 
                 <Button
                     android:id="@+id/edit"
@@ -149,7 +165,7 @@
 
                 <Button
                     android:id="@+id/done"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="done"
                     app:backgroundTint="@color/black" />
@@ -157,4 +173,5 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </FrameLayout>
