@@ -198,6 +198,20 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         return prodList
     }
 
+    fun select_product_by_vendor(vend: Int): MutableList<Product> {
+        val db = this.readableDatabase
+        val prodList: MutableList<Product> = ArrayList()
+        val cursor = db.rawQuery("SELECT * FROM '${table_product}' WHERE id = ${vend} ORDER BY '${review_product}' DESC,'${rating_product}' DESC LIMIT 10" , null)
+        var prod : Product
+        while(cursor.moveToNext()){
+            prod = Product(cursor.getInt(0),cursor.getString(1),cursor.getString(2)
+                ,cursor.getFloat(3),cursor.getInt(4),cursor.getFloat(5),cursor.getInt(6))
+            prodList.add(prod)
+        }
+        cursor.close()
+        return prodList
+    }
+
 
     fun select_from_cart(uid: Int): MutableList<Cart> {
         val db = this.readableDatabase

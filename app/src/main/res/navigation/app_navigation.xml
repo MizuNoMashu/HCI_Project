@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_item_description_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_item_description_to_vendorFragment"
+            app:destination="@id/vendorFragment" />
     </fragment>
     <fragment
         android:id="@+id/settings"
@@ -132,4 +135,9 @@
             android:id="@+id/action_cartFragment_to_settings"
             app:destination="@id/settings" />
     </fragment>
+    <fragment
+        android:id="@+id/vendorFragment"
+        android:name="com.example.hci.VendorFragment"
+        android:label="fragment_vendor"
+        tools:layout="@layout/fragment_vendor" />
 </navigation>

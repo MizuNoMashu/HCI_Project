@@ -75,7 +75,7 @@ class ProfileFragment : Fragment() {
             binding.nameEdit.isEnabled=true
             binding.surnameEdit.isEnabled=true
             binding.addressEdit.isEnabled =true
-            binding.emaiEdit.isEnabled = true
+            //binding.emaiEdit.isEnabled = true
             binding.phoneEdit.isEnabled=true
 
         }
@@ -84,7 +84,7 @@ class ProfileFragment : Fragment() {
             binding.nameEdit.isEnabled = false
             binding.surnameEdit.isEnabled= false
             binding.addressEdit.isEnabled =false
-            binding.emaiEdit.isEnabled = false
+            //binding.emaiEdit.isEnabled = false
             binding.phoneEdit.isEnabled=false
         }
         return root
@@ -126,7 +126,7 @@ class ProfileFragment : Fragment() {
         val nametext: String = binding.nameEdit.text.toString()
         val surnametext: String = binding.surnameEdit.text.toString()
         val addresstext: String = binding.addressEdit.text.toString()
-        val emailtext: String = binding.emaiEdit.text.toString()
+        //val emailtext: String = binding.emaiEdit.text.toString()
         val phonetext: String = binding.phoneEdit.text.toString()
         Log.d("saved Data:",nametext)
 
@@ -183,7 +183,7 @@ class ProfileFragment : Fragment() {
         binding.nameEdit.setText(logged_user?.name)
         binding.surnameEdit.setText(logged_user?.surname)
         binding.addressEdit.setText(logged_user?.address)
-        binding.emaiEdit.setText(logged_user?.email)
+        //binding.emaiEdit.setText(logged_user?.email)
         binding.phoneEdit.setText(logged_user?.phone)
     }
 

@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.example.hci.databinding.FragmentItemDescriptionBinding
 import com.google.android.material.button.MaterialButton
 
@@ -62,6 +63,10 @@ class Item_description : Fragment() {
                 x.dismiss()
             }
         }
+        val bundle_v = Bundle()
+        if (bundle != null) {
+            bundle_v.putInt("id_vendor", bundle.getInt("id_vendor"))
+        }
 
 
         binding.addToCart.setOnClickListener{
@@ -69,6 +74,10 @@ class Item_description : Fragment() {
                 ldb?.add_to_cart(logged_user!!.id , bundle.getInt("id_vendor") ,
                     bundle.getString("title")!! , bundle.getString("price")!!.toFloat(),bundle.getInt("image"), quantity )
             }
+        }
+
+        binding.vendorName.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(R.id.action_item_description_to_vendorFragment, bundle_v)
         }
 
         return binding.root
