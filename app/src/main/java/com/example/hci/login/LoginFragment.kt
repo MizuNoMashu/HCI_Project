@@ -7,7 +7,6 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.hci.R
@@ -92,11 +91,11 @@ class LoginFragment : Fragment() {
     }
 
     private fun updateUiWithUser(usr: User) {
-        val welcome = getString(R.string.welcome) + usr.name
+        //val welcome = getString(R.string.welcome) + usr.name
         logged_user = usr
         val appContext = context?.applicationContext ?: return
-        val toast0 = Toast.makeText(appContext, welcome, Toast.LENGTH_LONG)
-        toast0.show()
+        //val toast0 = Toast.makeText(appContext, welcome, Toast.LENGTH_LONG)
+        //toast0.show()
         NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_scroll_products)
     }
 

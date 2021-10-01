@@ -38,6 +38,7 @@ class ItemAdapter(
             bundle.putString("reviews",prod.review.toString())
             bundle.putString("price", prod.price.toString())
             bundle.putInt("image", prod.image)
+            bundle.putInt("id_vendor", prod.id)
 
             this.itemView.setOnClickListener(
                 Navigation.createNavigateOnClickListener(R.id.item_description , bundle)

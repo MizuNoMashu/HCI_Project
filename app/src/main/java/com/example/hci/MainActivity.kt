@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity() {
             "un oggetto poco bello" , 400F, 10000 , 5F, R.drawable.image1)
         ldb?.insert_product(2,"pisello marrone con rivestimento di cioccolato al caramello e pistacchio panna briciole adsalskalskalskalskalkslask",
             "un oggetto poco bello" , 80F, 1120 , 3.4F, R.drawable.image1)
+
+
         ldb?.insert_message(0,"Facebook","Matteo","ciao come stai")
         ldb?.insert_message(1,"Facebook","Matteo","sto bene grazie")
         ldb?.insert_message(2,"Facebook","Matteo","dove si va in vacanza")

@@ -35,13 +35,12 @@ class Item_description : Fragment() {
             binding.price.text = bundle.getString("price")
             binding.itemImage.setImageResource(bundle.getInt("image"))
             binding.stars.rating = bundle.getFloat("stars")
+            binding.vendorName.text = ldb?.select_vendor(bundle.getInt("id_vendor"))
         }
 
-        /*scrollQuantity.setOnClickListener{ iditem ->
-            iditem
-        }*/
-        val quantityButton = binding.itemQuantity
 
+        val quantityButton = binding.itemQuantity
+        var quantity = 0
         quantityButton.setOnClickListener {
             val x = android.app.Dialog(requireContext())
             x.setContentView(R.layout.quantity_dialog)
@@ -57,15 +56,19 @@ class Item_description : Fragment() {
                 x.dismiss()
             }
             scrollQuantity.setOnItemClickListener{ _, _, position, _ ->
-                val element = adapter.getItem(position)
-                val temp = "Qty: " + element.toString()
+                quantity = adapter.getItem(position)!!
+                val temp = "Qty: " + quantity.toString()
                 binding.itemQuantity.text =  temp
                 x.dismiss()
             }
         }
 
-        binding.addToCart.setOnClickListener{
 
+        binding.addToCart.setOnClickListener{
+            if (bundle != null) {
+                ldb?.add_to_cart(logged_user!!.id , bundle.getInt("id_vendor") ,
+                    bundle.getString("title")!! , bundle.getString("price")!!.toFloat(),bundle.getInt("image"), quantity )
+            }
         }
 
         return binding.root

@@ -8,17 +8,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.hci.R
 import com.example.hci.databinding.FragmentMessagesBinding
-import com.example.hci.ldb
-import com.example.hci.logged_user
-import com.example.hci.model.User
 
 
 class MessagesFragment : Fragment() {

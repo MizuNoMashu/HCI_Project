@@ -4,7 +4,6 @@ package com.example.hci.messages
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
-import com.example.hci.logged_user
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,7 @@ import androidx.fragment.app.Fragment
 import com.example.hci.R
 import com.example.hci.databinding.MessagesBinding
 import com.example.hci.ldb
+import com.example.hci.logged_user
 
 
 class Messages: Fragment() {

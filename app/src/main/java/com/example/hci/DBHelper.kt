@@ -3,11 +3,18 @@ package com.example.hci
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.hci.model.Cart
 import com.example.hci.model.Product
 import com.example.hci.model.User
 
 class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, null, 1) {
 
+    override fun onConfigure(db: SQLiteDatabase?) {
+        if (db != null) {
+            db.setForeignKeyConstraintsEnabled(true)
+        }
+        super.onConfigure(db)
+    }
     override fun onCreate(db: SQLiteDatabase){
         var create = "CREATE TABLE IF NOT EXISTS '${table_user}' ("+
                 "'${id_user}' INTEGER PRIMARY KEY AUTOINCREMENT,"+
@@ -31,15 +38,27 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         db.execSQL(create)
 
         create = "CREATE TABLE IF NOT EXISTS '${table_product}'(" +
-                "'${id_product}' INTEGER ,"+
+                "'${vid_product}' INTEGER NOT NULL,"+
                 "'${title_product}' TEXT NOT NULL," +
                 "'${description_product}' TEXT NOT NULL,"+
                 "'${price_product}' FLOAT NOT NULL," +
                 "'${review_product}' INTEGER NOT NULL," +
                 "'${rating_product}' FLOAT NOT NULL," +
                 "'${image_product}' INTEGER NOT NULL," +
-                "FOREIGN KEY (${id_product}) REFERENCES '${table_vendor}' (${id_vendor})," +
-                "PRIMARY KEY (${id_product},${title_product}))"
+                "FOREIGN KEY (${vid_product}) REFERENCES '${table_vendor}' (${id_vendor})," +
+                "PRIMARY KEY (${vid_product},${title_product}))"
+
+        db.execSQL(create)
+
+        create = "CREATE TABLE IF NOT EXISTS '${table_cart}'(" +
+                "'${uid_cart}' INTEGER NOT NULL," +
+                "'${vid_cart}' INTEGER NOT NULL," +
+                "'${ptitle_cart}' TEXT NOT NULL," +
+                "'${pprice_cart}' FLOAT NOT NULL," +
+                "'${pimage_cart}' INTEGER NOT NULL," +
+                "'${quantity_cart}' INTEGER NOT NULL," +
+                "FOREIGN KEY (${uid_cart}) REFERENCES '${table_user}' (${id_user})," +
+                "FOREIGN KEY (${vid_cart},${ptitle_cart}) REFERENCES '${table_product}' (${vid_product},${title_product}))"
 
         db.execSQL(create)
 
@@ -79,6 +98,20 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         return ret
     }
 
+
+    fun add_to_cart(uid: Int , vid: Int , ptitle: String , pprice: Float, pimage: Int, quantity: Int): Int{
+        val db = this.writableDatabase
+        val query = "INSERT INTO '${table_cart}' ('${uid_cart}', '${vid_cart}', '${ptitle_cart}', '${pprice_cart}'," +
+                "'${pimage_cart}', '${quantity_cart}') VALUES " +
+                "( '${uid}', '${vid}', '${ptitle}', '${pprice}', '${pimage}', '${quantity}')"
+        try{
+            db.execSQL(query)
+        } catch (e: Exception){
+            return 1
+        }
+        return 0
+    }
+
     fun insert_vendor(name: String): Int {
         val db = this.writableDatabase
         val query = "INSERT INTO '${table_vendor}' ('${name_vendor}') VALUES " +
@@ -90,6 +123,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         }
         return 0
     }
+
     fun insert_message(message_id :Int ,message_vid: String ,message_uid:String ,messages: String,): Int {
         val db = this.writableDatabase
         val query = "INSERT INTO '${table_message}' ('${id_message}', '${vid_message}','${uid_message}',  '${message}')VALUES " +
@@ -116,17 +150,19 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         return messageList
     }
 
-    fun insert_product(id: Int , title: String, description: String, price: Float, review: Int, rating: Float, image: Int): Int {
+
+
+    fun insert_product(vid: Int , title: String, description: String, price: Float, review: Int, rating: Float, image: Int): Int {
         val db = this.writableDatabase
         val query = "INSERT INTO '${table_product}' " +
-                "('${id_product}' ," +
+                "('${vid_product}' ," +
                 " '${title_product}'," +
                 "'${description_product}'," +
                 "'${price_product}'," +
                 "'${review_product}'," +
                 "'${rating_product}'," +
                 "'${image_product}') VALUES " +
-                "( '${id}', '${title}', '${description}' , '${price}' , '${review}' , '${rating}' , '${image}')"
+                "( '${vid}', '${title}', '${description}' , '${price}' , '${review}' , '${rating}' , '${image}')"
         try{
             db.execSQL(query)
         } catch (e: Exception){
@@ -151,16 +187,44 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
     fun select_product(): MutableList<Product> {
         val db = this.readableDatabase
         val prodList: MutableList<Product> = ArrayList()
-        val cursor = db.rawQuery("SELECT * FROM '${table_product}' ORDER BY '${review_product}' ASC,'${rating_product}' ASC LIMIT 10" , null)
+        val cursor = db.rawQuery("SELECT * FROM '${table_product}' ORDER BY '${review_product}' DESC,'${rating_product}' DESC LIMIT 10" , null)
         var prod : Product
         while(cursor.moveToNext()){
             prod = Product(cursor.getInt(0),cursor.getString(1),cursor.getString(2)
                 ,cursor.getFloat(3),cursor.getInt(4),cursor.getFloat(5),cursor.getInt(6))
             prodList.add(prod)
         }
+        cursor.close()
         return prodList
     }
 
+
+    fun select_from_cart(uid: Int): MutableList<Cart> {
+        val db = this.readableDatabase
+        val cartList: MutableList<Cart> = ArrayList()
+        val cursor = db.rawQuery("SELECT * FROM '${table_cart}' WHERE $uid_cart == '${uid}'" , null)
+        var prod : Cart
+        while(cursor.moveToNext()){
+            prod = Cart(cursor.getInt(0),cursor.getInt(1),cursor.getString(2)
+                ,cursor.getFloat(3),cursor.getInt(4),cursor.getInt(5))
+            cartList.add(prod)
+        }
+        cursor.close()
+        return cartList
+    }
+
+    fun select_vendor(vid: Int): String {
+        val db = this.readableDatabase
+        val vendor_name: String
+        val cursor = db.rawQuery("SELECT * FROM '${table_vendor}' WHERE $id_vendor == '${vid}'" , null)
+
+        cursor.moveToFirst()
+        vendor_name = cursor.getString(1)
+        cursor.close()
+        return vendor_name
+
+
+    }
 
     fun select_user(nemail: String): User? {
         val db = this.readableDatabase
@@ -173,7 +237,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
             }
             1 -> {
                 cursor.moveToFirst()
-                usr = User(cursor.getString(cursor.getColumnIndex(id_user)), cursor.getString(cursor.getColumnIndex(
+                usr = User(cursor.getInt(cursor.getColumnIndex(id_user)), cursor.getString(cursor.getColumnIndex(
                     email_user)), cursor.getString(cursor.getColumnIndex(
                     name_user)), cursor.getString(cursor.getColumnIndex(
                     surname_user)), cursor.getString(cursor.getColumnIndex(password_user)), cursor.getString(cursor.getColumnIndex(
@@ -247,13 +311,21 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         private const val name_vendor = "name"
 
         private const val table_product = "product"
-        private const val id_product = "id"
+        private const val vid_product = "id"
         private const val title_product = "title"
         private const val description_product = "description"
         private const val price_product = "price"
         private const val review_product = "review"
         private const val rating_product = "rating"
         private const val image_product = "image"
+
+        private const val table_cart = "cart"
+        private const val uid_cart = "uid"
+        private const val vid_cart = "vid"
+        private const val ptitle_cart = "title"
+        private const val pprice_cart = "price"
+        private const val pimage_cart = "image"
+        private const val quantity_cart = "quantity"
 
         private const val table_message = "message"
         private const val id_message = "id"
