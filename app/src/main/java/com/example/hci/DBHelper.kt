@@ -43,6 +43,16 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
 
         db.execSQL(create)
 
+        create = "CREATE TABLE IF NOT EXISTS '${table_message}'(" +
+                "'${id_message}' INTEGER NOT NULL,"+
+                "'${vid_message}' TEXT NOT NULL,"+
+                "'${uid_message}' TEXT NOT NULL,"+
+                "'${message}' TEXT NOT NULL,"+
+                "FOREIGN KEY (${vid_message}) REFERENCES '${table_vendor}' (${name_vendor}),"+
+                "FOREIGN KEY (${uid_message}) REFERENCES '${table_user}' (${name_user}),"+
+                "PRIMARY KEY (${id_message} ,${vid_message},${uid_message}))"
+        db.execSQL(create)
+
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -80,7 +90,31 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         }
         return 0
     }
+    fun insert_message(message_id :Int ,message_vid: String ,message_uid:String ,messages: String,): Int {
+        val db = this.writableDatabase
+        val query = "INSERT INTO '${table_message}' ('${id_message}', '${vid_message}','${uid_message}',  '${message}')VALUES " +
+                "('${message_id}', '${message_vid}', '${message_uid}', '${messages}')"
+        try{
+            db.execSQL(query)
+        } catch (e: Exception){
+            return 1
+        }
+        return 0
+    }
+    fun load_message(message_vid: String ,message_uid:String ): ArrayList<String> {
+        val db = this.readableDatabase
+        val messageList = ArrayList<String>()
+        val cursor = db.rawQuery(
+            "SELECT * FROM '${table_message}' WHERE vid == '${message_vid}' AND uid == '${message_uid}' ORDER BY '${id_message}'",
+            null
+        )
+        while(cursor.moveToNext()){
+            val messages = cursor.getString(3)
+            messageList.add(messages)
+        }
 
+        return messageList
+    }
 
     fun insert_product(id: Int , title: String, description: String, price: Float, review: Int, rating: Float, image: Int): Int {
         val db = this.writableDatabase
@@ -221,6 +255,10 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         private const val rating_product = "rating"
         private const val image_product = "image"
 
-
+        private const val table_message = "message"
+        private const val id_message = "id"
+        private const val vid_message = "vid"
+        private const val uid_message = "uid"
+        private const val message = "messages"
     }
 }
