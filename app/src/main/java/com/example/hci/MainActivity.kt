@@ -49,12 +49,12 @@ class MainActivity : AppCompatActivity() {
             "un oggetto poco bello" , 80F, 1120 , 3.4F, R.drawable.image1)
 
 
-        ldb?.insert_message(0,"Facebook","Matteo","ciao come stai")
+        /*ldb?.insert_message(0,"Facebook","Matteo","ciao come stai")
         ldb?.insert_message(1,"Facebook","Matteo","sto bene grazie")
         ldb?.insert_message(2,"Facebook","Matteo","dove si va in vacanza")
         ldb?.insert_message(0,"Instagram","Matteo","matteo va in vacanza")
         ldb?.insert_message(1,"Instagram","Matteo","matteo diventa ricco")
-        ldb?.insert_message(2,"Instagram","Matteo","matteo viaggia per il mondo")
+        ldb?.insert_message(2,"Instagram","Matteo","matteo viaggia per il mondo")*/
     }
 
 }

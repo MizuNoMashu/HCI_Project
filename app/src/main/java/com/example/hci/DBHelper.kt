@@ -24,7 +24,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
                 "'${password_user}' TEXT NOT NULL," +
                 "'${address_user}' TEXT NOT NULL," +
                 "'${phone_user}' TEXT NOT NULL," +
-                "'${image_user}' TEXT," +
+                "'${image_user}' BLOT," +
                 "UNIQUE (${email_user}))"
 
         //db.execSQL("DROP TABLE IF EXISTS '${table_user}'" )
@@ -243,7 +243,8 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
     fun select_user(nemail: String): User? {
         val db = this.readableDatabase
         val usr: User
-        val cursor = db.rawQuery("SELECT * FROM '${table_user}' WHERE email == '${nemail}'", null)
+        //val cursor = db.rawQuery("SELECT * FROM '${table_user}' WHERE email == '${nemail}'", null)
+        val cursor = db.rawQuery("SELECT ${id_user}, ${email_user}, ${name_user}, ${surname_user}, ${address_user}, ${phone_user}, ${password_user} FROM '${table_user}' WHERE email == '${nemail}'", null)
         when(cursor.count){
             0 -> {
                 cursor.close()
@@ -251,12 +252,13 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
             }
             1 -> {
                 cursor.moveToFirst()
-                usr = User(cursor.getInt(cursor.getColumnIndex(id_user)), cursor.getString(cursor.getColumnIndex(
-                    email_user)), cursor.getString(cursor.getColumnIndex(
-                    name_user)), cursor.getString(cursor.getColumnIndex(
-                    surname_user)), cursor.getString(cursor.getColumnIndex(password_user)), cursor.getString(cursor.getColumnIndex(
-                    address_user)), cursor.getString(cursor.getColumnIndex(
-                    phone_user)))
+                usr = User(cursor.getInt(cursor.getColumnIndex(id_user)),
+                    cursor.getString(cursor.getColumnIndex(email_user)),
+                    cursor.getString(cursor.getColumnIndex(name_user)),
+                    cursor.getString(cursor.getColumnIndex(surname_user)),
+                    cursor.getString(cursor.getColumnIndex(password_user)),
+                    cursor.getString(cursor.getColumnIndex(address_user)),
+                    cursor.getString(cursor.getColumnIndex(phone_user)))
             }
             else ->{
                 cursor.close()
