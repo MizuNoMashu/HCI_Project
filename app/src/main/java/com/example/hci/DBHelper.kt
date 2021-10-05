@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.example.hci.model.Cart
 import com.example.hci.model.Product
 import com.example.hci.model.User
+import com.example.hci.model.Vendor
 
 class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, null, 1) {
 
@@ -24,7 +25,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
                 "'${password_user}' TEXT NOT NULL," +
                 "'${address_user}' TEXT NOT NULL," +
                 "'${phone_user}' TEXT NOT NULL," +
-                "'${image_user}' BLOT," +
+                "'${image_user}' BLOB," +
                 "UNIQUE (${email_user}))"
 
         //db.execSQL("DROP TABLE IF EXISTS '${table_user}'" )
@@ -33,6 +34,9 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         create = "CREATE TABLE IF NOT EXISTS '${table_vendor}'(" +
                 "'${id_vendor}' INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "'${name_vendor}' TEXT NOT NULL," +
+                "'${desc_vendor}' TEXT NOT NULL," +
+                "'${eval_vendor}' TEXT NOT NULL," +
+                "'${img_vendor}' INTEGER," +
                 "UNIQUE (${name_vendor}))"
 
         db.execSQL(create)
@@ -77,25 +81,6 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS '${table_user}'" )
         onCreate(db)
-    }
-
-    fun getAll(): String{
-        val db = this.readableDatabase
-        var ret = ""
-        val cursor = db.rawQuery("SELECT * FROM '${table_user}'", null)
-        if(cursor.moveToFirst()){
-            do{
-                ret += cursor.getString(cursor.getColumnIndex(id_user))+" "
-                ret += cursor.getString(cursor.getColumnIndex(email_user))+" "
-                ret += cursor.getString(cursor.getColumnIndex(name_user))+" "
-                ret += cursor.getString(cursor.getColumnIndex(surname_user))+" "
-                ret += cursor.getString(cursor.getColumnIndex(password_user))+" "
-                ret += cursor.getString(cursor.getColumnIndex(address_user))+" "
-                ret += cursor.getString(cursor.getColumnIndex(phone_user))+"\n"
-            }while (cursor.moveToNext())
-        }
-        cursor.close()
-        return ret
     }
 
     fun create_contact(message_id: Int,message_uid: String): ArrayList<String> {
@@ -168,10 +153,10 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         return 0
     }
 
-    fun insert_vendor(name: String): Int {
+    fun insert_vendor(name: String, descr: String, eval: String, imge: Int): Int {
         val db = this.writableDatabase
-        val query = "INSERT INTO '${table_vendor}' ('${name_vendor}') VALUES " +
-                "( '${name}')"
+        val query = "INSERT INTO '${table_vendor}' ('${name_vendor}', '${desc_vendor}', '${eval_vendor}', '${img_vendor}') VALUES " +
+                "( '${name}', '${descr}', '${eval}', '${imge}')"
         try{
             db.execSQL(query)
         } catch (e: Exception){
@@ -205,8 +190,6 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
 
         return messageList
     }
-
-
 
     fun insert_product(vid: Int , title: String, description: String, price: Float, review: Int, rating: Float, image: Int): Int {
         val db = this.writableDatabase
@@ -283,18 +266,17 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         return cartList
     }
 
-    fun select_vendor(vid: Int): String {
+    fun select_vendor(vid: Int): Vendor {
         val db = this.readableDatabase
-        val vendor_name: String
+        val vendor: Vendor
         val cursor = db.rawQuery("SELECT * FROM '${table_vendor}' WHERE $id_vendor == '${vid}'" , null)
 
         cursor.moveToFirst()
-        vendor_name = cursor.getString(1)
+        vendor = Vendor(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4))
         cursor.close()
-        return vendor_name
-
-
+        return vendor
     }
+
 
     fun select_user(nemail: String): User? {
         val db = this.readableDatabase
@@ -382,6 +364,9 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         private const val table_vendor = "vendor"
         private const val id_vendor = "id"
         private const val name_vendor = "name"
+        private const val desc_vendor = "desc"
+        private const val eval_vendor = "eval"
+        private const val img_vendor = "image"
 
         private const val table_product = "product"
         private const val vid_product = "id"
