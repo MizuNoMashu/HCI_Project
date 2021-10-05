@@ -50,7 +50,7 @@ class ItemAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         // create a new view
         val adapterLayout = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_view, parent, false)
+                .inflate(R.layout.product_item_view, parent, false)
 
         return ItemViewHolder(adapterLayout)
     }

@@ -41,7 +41,7 @@ class Item_description : Fragment() {
 
 
         val quantityButton = binding.itemQuantity
-        var quantity = 0
+        var quantity = 1
         quantityButton.setOnClickListener {
             val x = android.app.Dialog(requireContext())
             x.setContentView(R.layout.quantity_dialog)

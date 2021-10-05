@@ -1,10 +1,9 @@
 package com.example.hci.profile
 
-
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
@@ -17,6 +16,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.hci.databinding.FragmentProfileBinding
 import com.example.hci.ldb
@@ -41,6 +41,7 @@ class ProfileFragment : Fragment() {
 
     //var IMAGE_REQUEST_CODE = 100
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -89,31 +90,13 @@ class ProfileFragment : Fragment() {
         }
         return root
     }
-    // get a variable
 
-    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-         super.onActivityResult(requestCode, resultCode, data)
-         if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK){
-
-             imageView.setImageURI(data?.data)
-
-         }
-     }*/
-
+    @RequiresApi(Build.VERSION_CODES.R)
     private fun saveImage() {
-        val context: Context? = activity
-        val sharedPreferences = context!!.getSharedPreferences("sharedPrefers",
-            Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-
         val bitmap = (imageView.drawable as BitmapDrawable).bitmap
         val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        bitmap.compress(Bitmap.CompressFormat.WEBP_LOSSY, 50, stream)
         val encodedImage = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT)
-
-        /*editor.apply{
-            putString("IMAGE_KEY", encodedImage)
-        }.apply()*/
 
         logged_user?.email?.let { ldb?.updateImage(it, encodedImage) }
 
@@ -130,19 +113,6 @@ class ProfileFragment : Fragment() {
         val phonetext: String = binding.phoneEdit.text.toString()
         Log.d("saved Data:",nametext)
 
-        /*val context: Context? = activity
-        val sharedPreferences = context!!.getSharedPreferences("sharedPrefers",
-            Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-
-        //save data
-        editor.apply{
-            putString("NAME_KEY",nametext)
-            putString("SURNAME_KEY",surnametext)
-            putString("ADDRESS_KEY",addresstext)
-            putString("EMAIL_KEY",emailtext)
-            putString("PHONE_KEY",phonetext)
-        }.apply()*/
 
         logged_user?.email?.let { ldb?.update(it, nametext, surnametext, addresstext, phonetext ) }
 
@@ -153,24 +123,6 @@ class ProfileFragment : Fragment() {
 
     private fun loadData() {
         Log.d("called: ","load data")
-
-        val context: Context? = activity
-        val sharedPreferences = context!!.getSharedPreferences("sharedPrefers",
-            Context.MODE_PRIVATE)
-
-        /*val nameString = sharedPreferences.getString("NAME_KEY",null)
-        val surnameString = sharedPreferences.getString("SURNAME_KEY",null)
-        val addressString = sharedPreferences.getString("ADDRESS_KEY",null)
-        val emailString = sharedPreferences.getString("EMAIL_KEY",null)
-        val phoneString = sharedPreferences.getString("PHONE_KEY",null)
-
-        val encodedImage = sharedPreferences.getString("IMAGE_KEY","DEFAULT")
-
-        if (encodedImage != "DEFAULT") {
-            val imageBytes = Base64.decode(encodedImage, Base64.DEFAULT)
-            val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-            binding.imageView.setImageBitmap(decodedImage)
-        }*/
 
         //chiamata al DB per recuperare l'immagine e scrittura in imageView
         val img = logged_user?.email?.let { ldb?.getImage(it) }

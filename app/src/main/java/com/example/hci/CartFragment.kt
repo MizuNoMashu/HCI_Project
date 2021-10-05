@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.affirmations.adapter.CartAdapter
 import com.example.hci.databinding.FragmentCartBinding
+import com.example.hci.listener.OnRecyclerViewCart
 import com.example.hci.model.Cart
 
 // TODO: Rename parameter arguments, choose names that match
@@ -18,7 +20,8 @@ private const val ARG_PARAM2 = "param2"
  * Use the [CartFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CartFragment : Fragment() {
+class CartFragment : Fragment() , OnRecyclerViewCart {
+
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -30,11 +33,21 @@ class CartFragment : Fragment() {
         listCart = ldb!!.select_from_cart(logged_user!!.id)
         if(listCart.size != 0){
             binding.orderLayout.visibility = View.VISIBLE
+            binding.itemCart.visibility = View.VISIBLE
+            val recyclerView = binding.itemCart
+            recyclerView.setHasFixedSize(true)
+            recyclerView.adapter = CartAdapter( this , listCart)
         }
         else{
             binding.orderLayout.visibility = View.GONE
+            binding.itemCart.visibility = View.GONE
         }
         return binding.root
+    }
+
+    override fun onRecyclerViewEmpty() {
+        binding.orderLayout.visibility = View.GONE
+        binding.itemCart.visibility = View.GONE
     }
 
 

@@ -59,7 +59,7 @@ class Messages: Fragment() {
             var message = binding.inputMessage.text
             list.add(msgModel(logged_user?.name.toString() ,message.toString()))
             listview?.adapter = context?.let { msgAdapter(it,
-                com.example.hci.R.layout.message_item,list) }
+                R.layout.message_item,list) }
             binding.inputMessage.setText("")
             saveData(message)
         }
@@ -110,8 +110,8 @@ class Messages: Fragment() {
         //load all message of past time
         while (count < size!!){
             val message = messageList.get(count)
-            list.add(msgModel(logged_user?.name.toString() ,message.toString()))
-            Log.d("message loaded",message.toString())
+            list.add(msgModel(logged_user?.name.toString() , message))
+
             count++
             //let the message visible
             listview?.adapter = context?.let { msgAdapter(it,R.layout.message_item,list) }

@@ -24,7 +24,7 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
                 "'${password_user}' TEXT NOT NULL," +
                 "'${address_user}' TEXT NOT NULL," +
                 "'${phone_user}' TEXT NOT NULL," +
-                "'${image_user}' TEXT," +
+                "'${image_user}' BLOT," +
                 "UNIQUE (${email_user}))"
 
         //db.execSQL("DROP TABLE IF EXISTS '${table_user}'" )
@@ -66,7 +66,10 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
                 "'${id_message}' INTEGER NOT NULL,"+
                 "'${vid_message}' TEXT NOT NULL,"+
                 "'${uid_message}' TEXT NOT NULL,"+
-                "'${message}' TEXT NOT NULL)"
+                "'${message}' TEXT NOT NULL,"+
+                "FOREIGN KEY (${vid_message}) REFERENCES '${table_vendor}' (${name_vendor}),"+
+                "FOREIGN KEY (${uid_message}) REFERENCES '${table_user}' (${email_user}),"+
+                "PRIMARY KEY (${id_message} ,${vid_message},${uid_message}))"
         db.execSQL(create)
 
     }
@@ -95,12 +98,68 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
         return ret
     }
 
+    fun create_contact(message_id: Int,message_uid: String): ArrayList<String> {
+        val db = this.readableDatabase
+        val messageList = ArrayList<String>()
+        val cursor = db.rawQuery(
+            "SELECT * FROM '${table_message}' WHERE id == '${message_id}' And uid == '${message_uid}'",
+            null
+        )
+        while(cursor.moveToNext()){
+            //select vendor_id = vendor_name with index 1
+            val messages = cursor.getString(1)
+            messageList.add(messages)
+        }
+        return messageList
+    }
+
+    fun verify_contact(message_vid: String ) : Int {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT * FROM '${table_message}' WHERE vid == '${message_vid}'",
+            null
+        )
+        if(cursor.moveToNext())
+            return 1
+        else
+            return 0
+    }
 
     fun add_to_cart(uid: Int , vid: Int , ptitle: String , pprice: Float, pimage: Int, quantity: Int): Int{
+        var db = this.readableDatabase
+        val select = db.rawQuery("SELECT $quantity_cart FROM '${table_cart}' WHERE $uid_cart == '${uid}' AND $vid_cart == '${vid}' AND $ptitle_cart == '${ptitle}'",null)
+        if(select.count != 0){
+
+            db = this.writableDatabase
+            select.moveToFirst()
+            val real_quantity = select.getInt(0) + quantity
+            val update = "UPDATE '${table_cart}' SET $quantity_cart = '${real_quantity}'  " +
+                    "WHERE $uid_cart = '${uid}' AND $vid_cart = '${vid}' AND $ptitle_cart = '${ptitle}';"
+            try {
+                db.execSQL(update)
+            } catch (e: Exception){
+                return 1
+            }
+            return 0
+        }
+        else{
+            db = this.writableDatabase
+            val query = "INSERT INTO '${table_cart}' ('${uid_cart}', '${vid_cart}', '${ptitle_cart}', '${pprice_cart}'," +
+                    "'${pimage_cart}', '${quantity_cart}') VALUES " +
+                    "( '${uid}', '${vid}', '${ptitle}', '${pprice}', '${pimage}', '${quantity}')"
+            try{
+                db.execSQL(query)
+            } catch (e: Exception){
+                return 1
+            }
+            return 0
+        }
+
+    }
+
+    fun remove_from_cart(uid: Int, vid: Int, ptitle: String): Int{
         val db = this.writableDatabase
-        val query = "INSERT INTO '${table_cart}' ('${uid_cart}', '${vid_cart}', '${ptitle_cart}', '${pprice_cart}'," +
-                "'${pimage_cart}', '${quantity_cart}') VALUES " +
-                "( '${uid}', '${vid}', '${ptitle}', '${pprice}', '${pimage}', '${quantity}')"
+        val query = "DELETE FROM '${table_cart}' WHERE $uid_cart == '${uid}' AND $vid_cart == '${vid}' AND $ptitle_cart == '${ptitle}'"
         try{
             db.execSQL(query)
         } catch (e: Exception){
@@ -119,21 +178,6 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
             return 1
         }
         return 0
-    }
-
-    fun create_contact(message_id: Int,message_uid: String): ArrayList<String> {
-        val db = this.readableDatabase
-        val messageList = ArrayList<String>()
-        val cursor = db.rawQuery(
-            "SELECT * FROM '${table_message}' WHERE id == '${message_id}' And uid == '${message_uid}'",
-            null
-        )
-        while(cursor.moveToNext()){
-            //select vendor_id = vendor_name with index 1
-            val messages = cursor.getString(1)
-            messageList.add(messages)
-        }
-        return messageList
     }
 
     fun insert_message(message_id :Int ,message_vid: String ,message_uid:String ,messages: String,): Int {
@@ -155,23 +199,11 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
             null
         )
         while(cursor.moveToNext()){
-            //select message of them witi index 3
             val messages = cursor.getString(3)
             messageList.add(messages)
         }
-        return messageList
-    }
 
-    fun verify_contact(message_vid: String ) : Int {
-        val db = this.readableDatabase
-        val cursor = db.rawQuery(
-            "SELECT * FROM '${table_message}' WHERE vid == '${message_vid}'",
-            null
-        )
-        if(cursor.moveToNext())
-            return 1
-        else
-            return 0
+        return messageList
     }
 
 
@@ -267,7 +299,9 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
     fun select_user(nemail: String): User? {
         val db = this.readableDatabase
         val usr: User
-        val cursor = db.rawQuery("SELECT * FROM '${table_user}' WHERE email == '${nemail}'", null)
+        //val cursor = db.rawQuery("SELECT * FROM '${table_user}' WHERE email == '${nemail}'", null)
+        val cursor = db.rawQuery("SELECT ${id_user}, ${email_user}, ${name_user}, ${surname_user}, ${address_user}," +
+                " ${phone_user}, ${password_user} FROM '${table_user}' WHERE email == '${nemail}'", null)
         when(cursor.count){
             0 -> {
                 cursor.close()
@@ -275,12 +309,13 @@ class DBHelper(var context: Context): SQLiteOpenHelper(context, database_name, n
             }
             1 -> {
                 cursor.moveToFirst()
-                usr = User(cursor.getInt(cursor.getColumnIndex(id_user)), cursor.getString(cursor.getColumnIndex(
-                    email_user)), cursor.getString(cursor.getColumnIndex(
-                    name_user)), cursor.getString(cursor.getColumnIndex(
-                    surname_user)), cursor.getString(cursor.getColumnIndex(password_user)), cursor.getString(cursor.getColumnIndex(
-                    address_user)), cursor.getString(cursor.getColumnIndex(
-                    phone_user)))
+                usr = User(cursor.getInt(cursor.getColumnIndex(id_user)),
+                    cursor.getString(cursor.getColumnIndex(email_user)),
+                    cursor.getString(cursor.getColumnIndex(name_user)),
+                    cursor.getString(cursor.getColumnIndex(surname_user)),
+                    cursor.getString(cursor.getColumnIndex(password_user)),
+                    cursor.getString(cursor.getColumnIndex(address_user)),
+                    cursor.getString(cursor.getColumnIndex(phone_user)))
             }
             else ->{
                 cursor.close()

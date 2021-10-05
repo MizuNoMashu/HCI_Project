@@ -79,7 +79,7 @@
                     android:layout_height="match_parent"
                     android:clickable="false"
                     android:text="Text button"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     app:icon="@drawable/ic_baseline_euro_24"
                     app:iconGravity="textEnd" />
 

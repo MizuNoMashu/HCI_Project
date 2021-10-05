@@ -14,7 +14,7 @@
             android:id="@+id/order_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -49,15 +49,18 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/item_list"
+            android:id="@+id/item_cart"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scrollbars="vertical"
             android:visibility="gone"
+            android:divider="#CCCCCC"
+            android:dividerHeight="1dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/order_layout" />
+            app:layout_constraintTop_toBottomOf="@id/order_layout"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
