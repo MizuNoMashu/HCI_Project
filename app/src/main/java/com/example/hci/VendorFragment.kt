@@ -1,6 +1,7 @@
 package com.example.hci
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.affirmations.adapter.ItemAdapter
 import com.example.hci.databinding.FragmentVendorBinding
+import com.example.hci.messages.MessagesFragment
+import com.google.android.play.core.internal.t
 
 class VendorFragment : Fragment() {
     private var _binding: FragmentVendorBinding? = null
@@ -37,8 +40,18 @@ class VendorFragment : Fragment() {
         binding.chatbtn.setOnClickListener {
             val bundle_m = Bundle()
             bundle_m.putString("vendor", vendor)
-            NavHostFragment.findNavController(this).navigate(R.id.messagesFragment, bundle_m)
-        }
+            Log.d("Venditore" , vendor.toString())
+            // if vendor exits into database t = 1 else t = 0
+            var t = ldb?.verify_contact(vendor.toString())
+            Log.d("verifica" , t.toString())
+            if (t.toString() == "1"){
+                NavHostFragment.findNavController(this).navigate(R.id.messagesFragment)
+                } else{
+                ldb?.insert_message(0,vendor.toString(), logged_user?.name.toString(),"Now we are friends, you can chat at all")
+                NavHostFragment.findNavController(this).navigate(R.id.messagesFragment)
+                 }
+            }
+
 
         return _binding!!.root
     }

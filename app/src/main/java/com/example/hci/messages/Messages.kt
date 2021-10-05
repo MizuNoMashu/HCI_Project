@@ -57,7 +57,7 @@ class Messages: Fragment() {
 
         sendBnt.setOnClickListener{
             var message = binding.inputMessage.text
-            list.add(msgModel("Facebook",message.toString()))
+            list.add(msgModel(logged_user?.name.toString() ,message.toString()))
             listview?.adapter = context?.let { msgAdapter(it,
                 com.example.hci.R.layout.message_item,list) }
             binding.inputMessage.setText("")
@@ -76,7 +76,7 @@ class Messages: Fragment() {
             Context.MODE_PRIVATE)
         vendor = sharedPreferences.getString("VENDOR_KEY",null)
 
-        ldb?.insert_message(count,vendor.toString(),"Matteo",message.toString())
+        ldb?.insert_message(count,vendor.toString(), logged_user?.name.toString(),message.toString())
 
         Log.d("message to save :",message.toString())
 
@@ -100,7 +100,7 @@ class Messages: Fragment() {
         Log.d("vendor loaded",vendor.toString())
 
 
-        val messageList: ArrayList<String>? = ldb?.load_message(vendor.toString(),"Matteo")!!
+        val messageList: ArrayList<String>? = ldb?.load_message(vendor.toString(),user.toString())!!
         Log.d("messaggio list",messageList.toString())
         val size = messageList?.size
         Log.d("size of message ",size.toString())
@@ -110,8 +110,8 @@ class Messages: Fragment() {
         //load all message of past time
         while (count < size!!){
             val message = messageList.get(count)
-            list.add(msgModel("Matteo",message.toString()))
-            Log.d("messaggio leaded",message.toString())
+            list.add(msgModel(logged_user?.name.toString() ,message.toString()))
+            Log.d("message loaded",message.toString())
             count++
             //let the message visible
             listview?.adapter = context?.let { msgAdapter(it,R.layout.message_item,list) }

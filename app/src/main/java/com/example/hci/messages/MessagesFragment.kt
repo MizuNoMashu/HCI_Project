@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.hci.R
 import com.example.hci.databinding.FragmentMessagesBinding
+import com.example.hci.ldb
+import com.example.hci.logged_user
 
 
 class MessagesFragment : Fragment() {
@@ -24,6 +26,8 @@ class MessagesFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     var vendor:String ?=null
+    val user = logged_user?.name.toString()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,19 +38,25 @@ class MessagesFragment : Fragment() {
 
         var listview= binding.listView
         val context: Context? = activity
-
+        //create_contact return an array of vendor name
+        val vendorList: ArrayList<String>? = ldb?.create_contact(0,user)!!
+        val size = vendorList?.size
         var list = mutableListOf<Model>()
+        var count:Int = 0
+        while (count < size!! ){   //size not null
+            val vendorName = vendorList.get(count)
+            list.add(Model(vendorName, "$vendorName description", R.drawable.meinv))
+            Log.d("vendor loaded",vendorName)
+            count++
+            //let the message visible
+            listview.adapter = context?.let { MyAdapter(it,R.layout.list_item,list) }
+        }
 
-        list.add(Model("Facebook","facebook description", R.drawable.meinv))
-        list.add(Model("Instagram","I description",R.drawable.meinv))
-        list.add(Model("Whatapp","W description",R.drawable.meinv))
-        list.add(Model("wechat","Wechat description",R.drawable.meinv))
-        list.add(Model("booking","B description",R.drawable.meinv))
-        list.add(Model("twitter","T description",R.drawable.meinv))
+
 
         //to show in app we have to adapt the list to our fragment
 
-        listview.adapter = context?.let { MyAdapter(it,R.layout.list_item,list) }
+
 
         //item click listener
         listview.setOnItemClickListener{

@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         ldb = DBHelper(this)
         ldb?.insert_user("ciao@ok.oi", "Giacomino", "Prova", "ciaociao", "via prova 123", "33344455566")
         ldb?.insert_vendor("apple")
+        ldb?.insert_vendor("Facebook")
         ldb?.insert_vendor("xiaomi")
         ldb?.insert_product(1 , "pisello marrone con rivestimento di cioccolato al caramello",
             "un oggetto bellissimo" , 4000F,10000, 5F,  R.drawable.image1)
@@ -49,12 +50,6 @@ class MainActivity : AppCompatActivity() {
             "un oggetto poco bello" , 80F, 1120 , 3.4F, R.drawable.image1)
 
 
-        /*ldb?.insert_message(0,"Facebook","Matteo","ciao come stai")
-        ldb?.insert_message(1,"Facebook","Matteo","sto bene grazie")
-        ldb?.insert_message(2,"Facebook","Matteo","dove si va in vacanza")
-        ldb?.insert_message(0,"Instagram","Matteo","matteo va in vacanza")
-        ldb?.insert_message(1,"Instagram","Matteo","matteo diventa ricco")
-        ldb?.insert_message(2,"Instagram","Matteo","matteo viaggia per il mondo")*/
     }
 
 }
