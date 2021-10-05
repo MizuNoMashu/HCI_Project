@@ -32,7 +32,9 @@ class Messages: Fragment() {
     var list = mutableListOf<msgModel>()
     var count:Int = 0
     var user:String ?= null
-    var vendor:String ?= null
+    val bundle_m =Bundle()
+
+    var vendor: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("TAG","onCreate: called")
@@ -53,11 +55,15 @@ class Messages: Fragment() {
         sendBnt = binding.sendBtn
         clearBtn = binding.clearBtn
 
+        val bundle = this.arguments
+        vendor = bundle?.getString("vendor")
+
+
         loadData()
 
         sendBnt.setOnClickListener{
             var message = binding.inputMessage.text
-            list.add(msgModel(logged_user?.name.toString() ,message.toString()))
+            list.add(msgModel(logged_user?.email.toString() ,message.toString()))
             listview?.adapter = context?.let { msgAdapter(it,
                 R.layout.message_item,list) }
             binding.inputMessage.setText("")
@@ -71,19 +77,11 @@ class Messages: Fragment() {
     private fun saveData(message: Editable?) {
         Log.d("called:","saveData")
 
-        val context: Context? = activity
-        val sharedPreferences = context!!.getSharedPreferences("sharedPrefers",
-            Context.MODE_PRIVATE)
-        vendor = sharedPreferences.getString("VENDOR_KEY",null)
-
-        ldb?.insert_message(count,vendor.toString(), logged_user?.name.toString(),message.toString())
+        ldb?.insert_message(count,vendor.toString(), logged_user?.email.toString(),message.toString())
 
         Log.d("message to save :",message.toString())
-
         // increment to load all message inserted
         count++
-
-        Log.d("index message :",count.toString())
         Toast.makeText( activity, "saved data", Toast.LENGTH_SHORT).show()
 
     }
@@ -91,26 +89,20 @@ class Messages: Fragment() {
 
     private fun loadData() {
         Log.d("called: ","load data")
-        user = logged_user?.name
+        user = logged_user?.email
         //load vendor
-        val context: Context? = activity
-        val sharedPreferences = context!!.getSharedPreferences("sharedPrefers",
-            Context.MODE_PRIVATE)
-        vendor = sharedPreferences.getString("VENDOR_KEY",null)
-        Log.d("vendor loaded",vendor.toString())
 
+        Log.d("vendor loaded",vendor.toString())
 
         val messageList: ArrayList<String>? = ldb?.load_message(vendor.toString(),user.toString())!!
         Log.d("messaggio list",messageList.toString())
         val size = messageList?.size
         Log.d("size of message ",size.toString())
 
-
-
         //load all message of past time
         while (count < size!!){
             val message = messageList.get(count)
-            list.add(msgModel(logged_user?.name.toString() , message))
+            list.add(msgModel(logged_user?.email.toString() , message))
 
             count++
             //let the message visible

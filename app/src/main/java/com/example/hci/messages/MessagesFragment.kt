@@ -25,7 +25,8 @@ class MessagesFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     var vendor:String ?=null
-    val user = logged_user?.name.toString()
+    val user = logged_user?.email.toString()
+    val bundle_m = Bundle()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,6 +42,7 @@ class MessagesFragment : Fragment() {
         val size = vendorList?.size
         var list = mutableListOf<Model>()
         var count:Int = 0
+
         while (count < size!! ){   //size not null
             val vendorName = vendorList[count]
             list.add(Model(vendorName, "$vendorName description", R.drawable.meinv))
@@ -53,29 +55,14 @@ class MessagesFragment : Fragment() {
         listview.setOnItemClickListener{
                 parent: AdapterView<*>?,view:View,position:Int,id:Long ->
             vendor = list[position].title
-            saveData()
-            Navigation.findNavController(view).navigate(R.id.messages)
+            bundle_m.putString("vendor", vendor)
+            Navigation.findNavController(view).navigate(R.id.messages , bundle_m)
 
         }
 
         return root
     }
 
-    private fun saveData() {
-        Log.d("called:","saveData")
-
-
-
-        val context: Context? = activity
-        val sharedPreferences = context!!.getSharedPreferences("sharedPrefers",
-            Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-
-        //save data
-        editor.apply{
-            putString("VENDOR_KEY",vendor)
-        }.apply()
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
