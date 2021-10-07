@@ -23,4 +23,7 @@
     <string name="send_Btn">Send</string>
     <string name="clear_btn">clear</string>
     <string name="pay_Method">Pay Method</string>
+    <string name="hi_my_message">Hi, my message</string>
+    <string name="_12_00_pm">12:00 PM</string>
+
 </resources>

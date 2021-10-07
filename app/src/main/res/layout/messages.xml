@@ -5,84 +5,73 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="403dp"
+        android:layout_height="592dp"
+        app:layout_constraintBottom_toTopOf="@+id/layout_messageArea"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ListView
-                android:id="@+id/sendView"
-                android:layout_width="382dp"
-                android:layout_height="645dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="390dp"
+                android:layout_height="575dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
-                android:divider="@color/white"
-                tools:listitem="@layout/message_item">
+                android:divider="@color/white">
 
-            </ListView>
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
 
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/layout_messageArea"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:id="@+id/layout_messageArea"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:minHeight="48dp"
+        android:background="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
 
-        tools:ignore="MissingConstraints">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="224dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical|center_horizontal">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputMessage"
-                android:layout_width="224dp"
-                android:layout_height="56dp"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:hint="Insert Message"
-
-                android:textSize="20dp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/clearBtn"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/inputMessage"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_weight="1"
-            android:text="@string/clear_btn"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:cornerRadius="8dp" />
+            android:background="@android:color/transparent"
+            android:hint="Enter Message"
+            android:maxLines="6"
+            android:minHeight="48dp" />
 
         <Button
             android:id="@+id/sendBtn"
+            android:text="@string/send_Btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_weight="1"
-            android:text="@string/send_Btn"
-            app:backgroundTint="@color/startblue" />
+            android:gravity="center"
+            android:layout_gravity="bottom" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

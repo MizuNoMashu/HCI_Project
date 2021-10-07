@@ -1,22 +1,19 @@
 package com.example.hci.messages
 
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
-import com.example.hci.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.hci.databinding.MessagesBinding
 import com.example.hci.ldb
 import com.example.hci.logged_user
-
 
 class Messages: Fragment() {
 
@@ -26,13 +23,13 @@ class Messages: Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var sendBnt: Button
-    private lateinit var clearBtn:Button
-    private var listview: ListView? = null
-    var arrayList:String? = ""
-    var list = mutableListOf<msgModel>()
+    private var listview: RecyclerView? = null
     var count:Int = 0
     var user:String ?= null
-    val bundle_m =Bundle()
+    val list = mutableListOf<String>()
+    private lateinit var  recyclerView:RecyclerView
+    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var adapter: RecyclerViewAdapter
 
     var vendor: String? = null
 
@@ -51,68 +48,81 @@ class Messages: Fragment() {
         _binding = MessagesBinding.inflate(inflater, container, false)
         val root: View = binding.root
         // inizio funzioni
-        listview= binding.sendView
+        listview= binding.recyclerView
         sendBnt = binding.sendBtn
-        clearBtn = binding.clearBtn
 
         val bundle = this.arguments
         vendor = bundle?.getString("vendor")
+        user = logged_user?.email
+        recyclerView = binding.recyclerView
+        initList()
+        reload()
 
-
-        loadData()
 
         sendBnt.setOnClickListener{
             var message = binding.inputMessage.text
-            list.add(msgModel(logged_user?.email.toString() ,message.toString()))
-            listview?.adapter = context?.let { msgAdapter(it,
-                R.layout.message_item,list) }
+            list.add(message.toString())
+            list.add("Waiting reply by vendor")
+            reload()
             binding.inputMessage.setText("")
             saveData(message)
+
         }
 
 
         return root
+    }
+    private fun initList(){
+        layoutManager = LinearLayoutManager(context)
+        adapter = RecyclerViewAdapter()
+
+        reload()
+
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+    }
+    private fun reload(){
+        recyclerView.post{
+            adapter.reload(loadData())
+        }
+    }
+    private fun loadData():MutableList<String>{
+
+        val messageList: ArrayList<String>? = ldb?.load_message(vendor.toString(),user.toString())!!
+        val size = messageList?.size
+
+        while (count<size!!){
+            val message = messageList.get(count)
+            val odd = count % 2
+            when(odd){   //odd must equal to getItemViewType position condition into when
+                //zero correspond to getItemViewType position
+                0 ->{
+                    list.add(message)
+                    count++
+                }
+                1 ->{
+                    list.add(message)
+                    count++
+                }
+                else ->{
+                    list.add(message)
+                    count++
+                }
+            }
+        }
+
+        return list
     }
 
     private fun saveData(message: Editable?) {
         Log.d("called:","saveData")
 
         ldb?.insert_message(count,vendor.toString(), logged_user?.email.toString(),message.toString())
-
-        Log.d("message to save :",message.toString())
+        count++
+        ldb?.insert_message(count,vendor.toString(), logged_user?.email.toString(),"Waiting reply by vendor")
         // increment to load all message inserted
         count++
         Toast.makeText( activity, "saved data", Toast.LENGTH_SHORT).show()
-
-    }
-
-
-    private fun loadData() {
-        Log.d("called: ","load data")
-        user = logged_user?.email
-        //load vendor
-
-        Log.d("vendor loaded",vendor.toString())
-
-        val messageList: ArrayList<String>? = ldb?.load_message(vendor.toString(),user.toString())!!
-        Log.d("messaggio list",messageList.toString())
-        val size = messageList?.size
-        Log.d("size of message ",size.toString())
-
-        //load all message of past time
-        while (count < size!!){
-            val message = messageList.get(count)
-            list.add(msgModel(logged_user?.email.toString() , message))
-
-            count++
-            //let the message visible
-            listview?.adapter = context?.let { msgAdapter(it,R.layout.message_item,list) }
-        }
-        Log.d("final count",count.toString())
-
-
-        //binding.sendView.setText(messagesString)
-        Toast.makeText( activity, "loaded", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

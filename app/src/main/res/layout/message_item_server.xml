@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/msgMessage"
-        android:text="@string/hi_my_message"
-        android:background="@drawable/my_message_bubble"
+        android:background="@drawable/other_message_bubble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="240dp"
@@ -18,19 +15,18 @@
         android:textColor="#ffffff"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/msgName"
-        android:text="12:00 PM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:textSize="10sp"
         android:textStyle="bold"
-        android:layout_marginEnd="10dp"
+        app:layout_constraintStart_toEndOf="@+id/msgMessage"
         app:layout_constraintBottom_toBottomOf="@+id/msgMessage"
-        app:layout_constraintRight_toLeftOf="@+id/msgMessage"
-        tools:ignore="SmallSp" />
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

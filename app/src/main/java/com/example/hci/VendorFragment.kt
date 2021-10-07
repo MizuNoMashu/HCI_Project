@@ -41,10 +41,10 @@ class VendorFragment : Fragment() {
             var t = ldb?.verify_contact(vendor.toString())
 
             if (t.toString() == "1"){
-                NavHostFragment.findNavController(this).navigate(R.id.messagesFragment, bundle_m)
+                NavHostFragment.findNavController(this).navigate(R.id.messages, bundle_m)
             } else{
                 ldb?.insert_message(0,vendor.toString(), logged_user?.email.toString(),"Now we are friends, you can chat at all")
-                NavHostFragment.findNavController(this).navigate(R.id.messagesFragment,bundle_m)
+                NavHostFragment.findNavController(this).navigate(R.id.messages,bundle_m)
             }
         }
 
