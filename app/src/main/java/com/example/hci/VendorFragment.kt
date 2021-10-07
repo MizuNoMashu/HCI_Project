@@ -1,6 +1,7 @@
 package com.example.hci
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.affirmations.adapter.ItemAdapter
 import com.example.hci.databinding.FragmentVendorBinding
+import com.example.hci.model.Vendor
 
 class VendorFragment : Fragment() {
     private var _binding: FragmentVendorBinding? = null
@@ -19,14 +21,17 @@ class VendorFragment : Fragment() {
         //val vview = inflater.inflate(R.layout.fragment_vendor,container,false)
         _binding = FragmentVendorBinding.inflate(inflater, container, false)
         val bundle = this.arguments
-        var vendor: String? = null
+        var vendor: Vendor? = null
         if (bundle != null) {
             vendor = ldb?.select_vendor(bundle.getInt("id_vendor"))
         }
 
-        binding.venName.text = vendor
-        //binding.venEval.text = ""
-        //binding.venDescr.text = ""
+        if (vendor != null) {
+            binding.venName.text = vendor.name
+            binding.venDescr.text = vendor.desc
+            binding.venEval.text = vendor.eval
+            binding.venLogo.setImageResource(vendor.image)
+        }
 
         val recyclerView = _binding!!.recyclerViewVen
         if (bundle != null) {
@@ -36,15 +41,21 @@ class VendorFragment : Fragment() {
 
         binding.chatbtn.setOnClickListener {
             val bundle_m = Bundle()
-            bundle_m.putString("vendor", vendor)
+            if (vendor != null) {
+                Log.d("vendor name",vendor.name)
+                bundle_m.putString("vendor", vendor.name)
+            }
             // if vendor exits into database t = 1 else t = 0
-            var t = ldb?.verify_contact(vendor.toString())
-
+            var t = ldb?.verify_contact(binding.venName.text.toString() )
+            Log.d("vendor name",binding.venName.text.toString())
             if (t.toString() == "1"){
                 NavHostFragment.findNavController(this).navigate(R.id.messages, bundle_m)
             } else{
-                ldb?.insert_message(0,vendor.toString(), logged_user?.email.toString(),"Now we are friends, you can chat at all")
-                NavHostFragment.findNavController(this).navigate(R.id.messages,bundle_m)
+                Log.d("vendor ",binding.venName.text.toString())
+                Log.d("user ",logged_user?.email.toString())
+                ldb?.insert_message(0,binding.venName.text.toString(), logged_user?.email.toString(),"Now we are friends, you can chat at all")
+                Log.d("vendor not exist",t.toString())
+                NavHostFragment.findNavController(this).navigate(R.id.messagesFragment, bundle_m)
             }
         }
 

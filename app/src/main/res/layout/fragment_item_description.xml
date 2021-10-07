@@ -8,7 +8,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -21,19 +21,29 @@
                 android:id="@+id/vendor_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vendor name" />
+                android:text="Vendor name"
+                android:textColor="#1976D2"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
             <TextView
                 android:id="@+id/item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Product Name"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textSize="26sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/item_image"
+                tools:layout_editor_absoluteX="0dp">
 
                 <RatingBar
                     android:id="@+id/stars"
@@ -56,21 +66,26 @@
                 android:id="@+id/item_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/ic_launcher_background"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vendor_name" />
 
             <LinearLayout
+                android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/item_image"
+                tools:layout_editor_absoluteX="0dp">
 
                 <TextView
                     android:id="@+id/price_fixed"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Price:"
-                    />
+                    android:text="Price:" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/price"
@@ -79,7 +94,7 @@
                     android:layout_height="match_parent"
                     android:clickable="false"
                     android:text="Text button"
-                    android:textSize="15sp"
+                    android:textSize="15dp"
                     app:icon="@drawable/ic_baseline_euro_24"
                     app:iconGravity="textEnd" />
 
@@ -95,14 +110,17 @@
                     app:iconGravity="textEnd" />
 
             </LinearLayout>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/add_to_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="Add to cart"/>
-        </LinearLayout>
+                android:text="Add to cart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 

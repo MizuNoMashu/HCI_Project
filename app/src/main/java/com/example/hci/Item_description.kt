@@ -1,6 +1,7 @@
 package com.example.hci
 
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +37,8 @@ class Item_description : Fragment() {
             binding.price.text = bundle.getString("price")
             binding.itemImage.setImageResource(bundle.getInt("image"))
             binding.stars.rating = bundle.getFloat("stars")
-            binding.vendorName.text = ldb?.select_vendor(bundle.getInt("id_vendor"))
+            binding.vendorName.text = ldb?.select_vendor(bundle.getInt("id_vendor"))?.name
+            binding.vendorName.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG)
         }
 
 

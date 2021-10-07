@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity() {
         }
         ldb = DBHelper(this)
         ldb?.insert_user("ciao@ok.oi", "Giacomino", "Prova", "ciaociao", "via prova 123", "33344455566")
-        ldb?.insert_vendor("apple")
-        ldb?.insert_vendor("Facebook")
-        ldb?.insert_vendor("xiaomi")
+        ldb?.insert_vendor("apple", "Sells electronics devices", "4.7/5", R.drawable.apple_logo)
+        ldb?.insert_vendor("Facebook", "Social network", "4.1/5", R.drawable.facebook_logo)
+        ldb?.insert_vendor("xiaomi", "Sells electronics devices", "4.5/5", R.drawable.xiaomi_logo)
         ldb?.insert_product(1 , "pisello marrone con rivestimento di cioccolato al caramello",
             "un oggetto bellissimo" , 4000F,10000, 5F,  R.drawable.image1)
         ldb?.insert_product(1,"pisello marrone con rivestimento di cioccolato al caramello e pistacchio panna briciole adsalskalskalskalskalkslask",
