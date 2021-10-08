@@ -244,7 +244,7 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
                             "('${temp.uid}','${temp.vid}','${temp.ptitle}','${temp.pimage}','${temp.quantity}')"
                 )
             }
-
+            ldb?.remove_from_cart(temp.uid,temp.vid,temp.ptitle)
         }
         return 0
     }

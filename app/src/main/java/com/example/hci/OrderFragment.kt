@@ -11,10 +11,6 @@ import com.example.hci.adapter.setDivider
 import com.example.hci.databinding.FragmentOrderBinding
 import com.example.hci.model.Order
 
-
-
-
-
 class OrderFragment : Fragment() {
 
     private var _binding: FragmentOrderBinding? = null

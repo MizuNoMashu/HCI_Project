@@ -44,6 +44,9 @@ class CartFragment : Fragment() , OnRecyclerViewCart {
         }
         binding.orderButton.setOnClickListener{
             ldb?.insertOrder(logged_user!!.id)
+            binding.itemCart.visibility = View.GONE
+            binding.orderLayout.visibility = View.GONE
+            binding.goToShop.visibility = View.VISIBLE
         }
         return binding.root
     }
