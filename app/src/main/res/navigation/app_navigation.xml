@@ -65,11 +65,11 @@
             android:id="@+id/action_settings_to_cartFragment"
             app:destination="@id/cartFragment" />
         <action
-            android:id="@+id/action_settings_to_paymentFragment"
-            app:destination="@id/paymentFragment" />
-        <action
             android:id="@+id/action_settings_to_orderFragment"
             app:destination="@id/orderFragment" />
+        <action
+            android:id="@+id/action_settings_to_displayPaymentFragment"
+            app:destination="@id/displayPaymentFragment" />
     </fragment>
     <fragment
         android:id="@+id/profile"
@@ -151,8 +151,8 @@
         android:name="com.example.hci.payment.paymentFragment"
         android:label="paymentFragment" >
         <action
-            android:id="@+id/action_paymentFragment_to_settings"
-            app:destination="@id/settings" />
+            android:id="@+id/action_paymentFragment_to_displayPaymentFragment"
+            app:destination="@id/displayPaymentFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderFragment"
@@ -167,5 +167,13 @@
         <action
             android:id="@+id/action_orderFragment_to_settings"
             app:destination="@id/settings" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayPaymentFragment"
+        android:name="com.example.hci.payment.DisplayPaymentFragment"
+        android:label="DisplayPaymentFragment" >
+        <action
+            android:id="@+id/action_displayPaymentFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
     </fragment>
 </navigation>

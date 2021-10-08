@@ -85,6 +85,14 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
                 "PRIMARY KEY (${id_message} ,${vid_message},${uid_message}))"
         db.execSQL(create)
 
+        create = "CREATE TABLE IF NOT EXISTS '${table_pay}'(" +
+                "'${uemail_pay}' TEXT NOT NULL,"+
+                "'${num_pay}' TEXT NOT NULL,"+
+                "'${name_pay}' TEXT NOT NULL,"+
+                "'${epire_pay}' TEXT NOT NULL,"+
+                "FOREIGN KEY (${uemail_pay}) REFERENCES '${table_user}' (${email_user}),"+
+                "PRIMARY KEY (${uemail_pay} ,${num_pay}))"
+        db.execSQL(create)
 
     }
 
@@ -541,6 +549,31 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
         db.execSQL(query)
     }
 
+    fun insert_payment(nuemail:String, nnum: String, nname: String, nexpire: String): Int{
+        val db = this.writableDatabase
+        val query = "INSERT INTO '${table_pay}' ('${uemail_pay}', '${num_pay}', '${name_pay}', '${epire_pay}') VALUES " +
+                "('${nuemail}', '${nnum}', '${nname}', '${nexpire}')"
+        try{
+            db.execSQL(query)
+        } catch (e: Exception){
+            return 1
+        }
+        return 0
+    }
+
+    fun getPayments(): MutableList<Payment>{
+        val db = this.readableDatabase
+        val payList: MutableList<Payment> = ArrayList()
+        val cursor = db.rawQuery("SELECT * FROM '${table_pay}' WHERE email = ${uemail_pay}" , null)
+        var pay : Payment
+        while(cursor.moveToNext()){
+            pay = Payment(cursor.getString(2),cursor.getString(1),cursor.getString(3))
+            payList.add(pay)
+        }
+        cursor.close()
+        return payList
+    }
+
     companion object {
         private const val database_name = "database.db"
         private const val table_user = "users"
@@ -589,5 +622,11 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
         private const val ptitle_order = "title"
         private const val pimage_order = "image"
         private const val quantity_order = "quantity"
+
+        private const val table_pay = "payment"
+        private const val uemail_pay = "email"
+        private const val num_pay = "paynum"
+        private const val name_pay = "payname"
+        private const val epire_pay = "payexp"
     }
 }

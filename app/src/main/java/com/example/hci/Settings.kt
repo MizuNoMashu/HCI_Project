@@ -42,7 +42,7 @@ class Settings : Fragment() {
         }
 
         inf.findViewById<MaterialButton>(R.id.payMethod).setOnClickListener {
-            Navigation.findNavController(inf).navigate(R.id.action_settings_to_paymentFragment)
+            Navigation.findNavController(inf).navigate(R.id.action_settings_to_displayPaymentFragment)
         }
 
         inf.findViewById<MaterialButton>(R.id.order).setOnClickListener {
