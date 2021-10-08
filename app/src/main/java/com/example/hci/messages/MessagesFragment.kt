@@ -4,7 +4,6 @@ package com.example.hci.messages
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +41,6 @@ class MessagesFragment : Fragment() {
         val size = vendorList?.size
         var list = mutableListOf<Model>()
         var count:Int = 0
-
         while (count < size!! ){   //size not null
             val vendorName = vendorList[count]
             list.add(Model(vendorName, "$vendorName description", R.drawable.meinv))
@@ -53,7 +51,7 @@ class MessagesFragment : Fragment() {
 
 
         listview.setOnItemClickListener{
-                parent: AdapterView<*>?,view:View,position:Int,id:Long ->
+                _: AdapterView<*>?, view:View, position:Int, _:Long ->
             vendor = list[position].title
             bundle_m.putString("vendor", vendor)
             Navigation.findNavController(view).navigate(R.id.messages , bundle_m)
@@ -63,10 +61,7 @@ class MessagesFragment : Fragment() {
         return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 }
 
 

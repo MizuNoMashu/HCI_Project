@@ -25,9 +25,9 @@
         android:id="@+id/name_cart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
         android:text="title"
         android:textSize="24sp"
-        android:paddingLeft="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_cart"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,13 +38,14 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:clickable="false"
-        android:text="Price"
         android:paddingLeft="5dp"
+        android:text="Price"
         android:textSize="15sp"
         app:icon="@drawable/ic_baseline_euro_24"
         app:iconGravity="textEnd"
         app:layout_constraintLeft_toRightOf="@id/image_cart"
         app:layout_constraintTop_toBottomOf="@+id/name_cart" />
+
     <LinearLayout
         android:id="@+id/counter"
         android:layout_width="wrap_content"
@@ -70,7 +71,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_margin="4dp"
-                android:src="@drawable/ic_baseline_remove_circle_outline_24"/>
+                android:src="@drawable/ic_baseline_remove_circle_outline_24" />
 
 
         </androidx.cardview.widget.CardView>
@@ -103,18 +104,18 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_margin="4dp"
-                android:src="@drawable/ic_baseline_add_circle_outline_24"/>
+                android:src="@drawable/ic_baseline_add_circle_outline_24" />
 
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/drop_cart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/counter"
-        app:layout_constraintTop_toBottomOf="@id/price_cart"
-        app:layout_constraintEnd_toEndOf="parent"
         android:text="Remove"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/counter"
+        app:layout_constraintTop_toBottomOf="@id/price_cart" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,6 @@ package com.example.hci.messages
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hci.R
 

@@ -1,4 +1,4 @@
-package com.example.affirmations.adapter
+package com.example.hci.adapter
 
 import android.os.Bundle
 import android.view.LayoutInflater

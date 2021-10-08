@@ -5,21 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.affirmations.adapter.CartAdapter
+import androidx.navigation.Navigation
+import com.example.hci.adapter.CartAdapter
 import com.example.hci.databinding.FragmentCartBinding
 import com.example.hci.listener.OnRecyclerViewCart
 import com.example.hci.model.Cart
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CartFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class CartFragment : Fragment() , OnRecyclerViewCart {
 
     private var _binding: FragmentCartBinding? = null
@@ -29,18 +25,25 @@ class CartFragment : Fragment() , OnRecyclerViewCart {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCartBinding.inflate(inflater,container,false)
-        val listCart: MutableList<Cart>
-        listCart = ldb!!.select_from_cart(logged_user!!.id)
+        val listCart: MutableList<Cart> = ldb!!.select_from_cart(logged_user!!.id)
+        binding.goToShop.setOnClickListener {
+            Navigation.findNavController(this.requireView()).navigate(R.id.action_cartFragment_to_scroll_products)
+        }
         if(listCart.size != 0){
             binding.orderLayout.visibility = View.VISIBLE
             binding.itemCart.visibility = View.VISIBLE
+            binding.goToShop.visibility = View.GONE
             val recyclerView = binding.itemCart
             recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = CartAdapter( this , listCart)
+            recyclerView.adapter = CartAdapter( this )
         }
         else{
             binding.orderLayout.visibility = View.GONE
             binding.itemCart.visibility = View.GONE
+            binding.goToShop.visibility = View.VISIBLE
+        }
+        binding.orderButton.setOnClickListener{
+            ldb?.insertOrder(logged_user!!.id)
         }
         return binding.root
     }
@@ -48,7 +51,11 @@ class CartFragment : Fragment() , OnRecyclerViewCart {
     override fun onRecyclerViewEmpty() {
         binding.orderLayout.visibility = View.GONE
         binding.itemCart.visibility = View.GONE
+        binding.goToShop.visibility = View.VISIBLE
     }
 
+    override fun totalPrizeCount(uid: Int) {
+        binding.prizeText.text = ldb?.totalPrice(uid).toString()
+    }
 
 }

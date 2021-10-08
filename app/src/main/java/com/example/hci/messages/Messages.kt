@@ -34,7 +34,6 @@ class Messages: Fragment() {
     var vendor: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("TAG","onCreate: called")
         super.onCreate(savedInstanceState)
     }
 
@@ -94,8 +93,7 @@ class Messages: Fragment() {
         while (count<size!!){
             val message = messageList.get(count)
             val odd = count % 2
-            when(odd){   //odd must equal to getItemViewType position condition into when
-                //zero correspond to getItemViewType position
+            when(odd){
                 0 ->{
                     list.add(message)
                     count++
@@ -116,13 +114,10 @@ class Messages: Fragment() {
 
     private fun saveData(message: Editable?) {
         Log.d("called:","saveData")
-
         ldb?.insert_message(count,vendor.toString(), logged_user?.email.toString(),message.toString())
         count++
         ldb?.insert_message(count,vendor.toString(), logged_user?.email.toString(),"Waiting reply by vendor")
-        // increment to load all message inserted
         count++
-        Toast.makeText( activity, "saved data", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
