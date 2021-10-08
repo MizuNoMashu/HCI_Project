@@ -561,10 +561,10 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
         return 0
     }
 
-    fun getPayments(): MutableList<Payment>{
+    fun getPayments(pemail: String): MutableList<Payment>{
         val db = this.readableDatabase
         val payList: MutableList<Payment> = ArrayList()
-        val cursor = db.rawQuery("SELECT * FROM '${table_pay}' WHERE email = ${uemail_pay}" , null)
+        val cursor = db.rawQuery("SELECT * FROM '${table_pay}' WHERE email = '${pemail}'" , null)
         var pay : Payment
         while(cursor.moveToNext()){
             pay = Payment(cursor.getString(2),cursor.getString(1),cursor.getString(3))

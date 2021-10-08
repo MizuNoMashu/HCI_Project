@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +19,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import com.example.hci.R
 import com.example.hci.databinding.FragmentProfileBinding
 import com.example.hci.ldb
 import com.example.hci.logged_user
@@ -48,10 +51,12 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d("TAG","onCreateView: called")
+        if(logged_user == null) NavHostFragment.findNavController(this).navigate(R.id.loginFragment)
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
         // inizio funzioni
+        binding.errorTextp.visibility = View.GONE
         loadData()
 
         imageView = binding.imageView
@@ -81,12 +86,22 @@ class ProfileFragment : Fragment() {
 
         }
         binding.done.setOnClickListener{
-            saveData()
-            binding.nameEdit.isEnabled = false
-            binding.surnameEdit.isEnabled= false
-            binding.addressEdit.isEnabled =false
-            //binding.emaiEdit.isEnabled = false
-            binding.phoneEdit.isEnabled=false
+            if(binding.nameEdit.text.toString() == ""){
+                showMsg("Name")
+            } else if (binding.surnameEdit.text.toString() == ""){
+                showMsg("Surname")
+            } else if (binding.addressEdit.text.toString() == ""){
+                showMsg("Address")
+            } else if (binding.phoneEdit.text.toString() == ""){
+                showMsg("Phone")
+            } else{
+                saveData()
+                binding.nameEdit.isEnabled = false
+                binding.surnameEdit.isEnabled= false
+                binding.addressEdit.isEnabled =false
+                //binding.emaiEdit.isEnabled = false
+                binding.phoneEdit.isEnabled=false
+            }
         }
         return root
     }
@@ -137,6 +152,19 @@ class ProfileFragment : Fragment() {
         binding.addressEdit.setText(logged_user?.address)
         //binding.emaiEdit.setText(logged_user?.email)
         binding.phoneEdit.setText(logged_user?.phone)
+    }
+
+    private fun displayMsg(str: String){
+        val errtxt = binding.errorTextp
+        errtxt.text = str
+        errtxt.visibility = View.VISIBLE
+        Handler().postDelayed(Runnable { // hide your button here
+            errtxt.visibility = View.GONE
+        }, 2000)
+    }
+
+    private fun showMsg(msg: String){
+        displayMsg(msg + " can't be empty")
     }
 
     override fun onDestroyView() {

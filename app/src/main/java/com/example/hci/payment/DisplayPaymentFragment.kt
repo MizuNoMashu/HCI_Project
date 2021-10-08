@@ -23,9 +23,8 @@ class DisplayPaymentFragment : Fragment(){
         _binding = FragmentDisplPayBinding.inflate(inflater, container, false)
 
         val recyclerView = _binding!!.recyclerpay
-        val ret = ldb?.getPayments()
+        val ret = logged_user?.email?.let { ldb?.getPayments(it) }
         if (ret != null) {
-            Log.d("db", ret.size.toString())
             recyclerView.adapter = PaymentAdapter(ret)
         }
 

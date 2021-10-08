@@ -31,8 +31,8 @@
 
             <ImageView
                 android:id="@+id/image_view"
-                android:layout_width="200dp"
-                android:layout_height="128dp"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
 
                 android:background="#BAA9A9"
                 android:maxHeight="30dp"
@@ -152,6 +152,21 @@
                     android:textSize="12sp"
                     app:backgroundTint="@color/black" />
             </LinearLayout>
+            <Button
+                android:id="@+id/errorTextp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:clickable="false"
+                android:text="Error"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#FF0303"
+                android:textSize="20sp"
+                app:backgroundTint="#9C303F9F"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </FrameLayout>
