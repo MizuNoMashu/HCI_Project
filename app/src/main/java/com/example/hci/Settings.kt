@@ -1,5 +1,6 @@
 package com.example.hci
 
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
@@ -11,6 +12,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlin.contracts.contract
 
 class Settings : Fragment() {
     override fun onCreateView(
@@ -37,8 +40,19 @@ class Settings : Fragment() {
         }
 
         inf.findViewById<MaterialButton>(R.id.logout_button).setOnClickListener {
-            logged_user = null
-            Navigation.findNavController(inf).navigate(R.id.action_settings_to_loginFragment)
+            val context: Context? = activity
+
+            MaterialAlertDialogBuilder(context!!)
+                .setTitle("Log out")
+                .setMessage("Are you sure to log out?")
+                .setNeutralButton(R.string.cancel) { dialog, which ->
+                    // Respond to neutral button press
+                }
+                .setPositiveButton("YES") { dialog, which ->
+                    logged_user = null
+                    Navigation.findNavController(inf).navigate(R.id.action_settings_to_loginFragment)
+                }
+                .show()
         }
 
         inf.findViewById<MaterialButton>(R.id.payMethod).setOnClickListener {

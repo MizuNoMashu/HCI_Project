@@ -5,10 +5,13 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.hci.R
 import com.example.hci.databinding.FragmentSigninBinding
+
+
 import com.example.hci.ldb
 import com.example.hci.logged_user
 
@@ -33,7 +36,8 @@ class SigninFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(logged_user != null) NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_scroll_products)
+        if (logged_user != null) NavHostFragment.findNavController(this)
+            .navigate(R.id.action_loginFragment_to_scroll_products)
 
         val emailEditText = binding.emails
         val nameEditText = binding.names
@@ -59,7 +63,7 @@ class SigninFragment : Fragment() {
             val phoneText = phoneEditText.text.toString()
 
             if(!emailText.contains("@") || emailText == ""){
-                showInvalidEmail()
+               // showInvalidEmail()
             } else if(nameText == ""){
                 showInvalidName()
             } else if(passwordText.length < 5 || password2Text.length < 5){
@@ -107,13 +111,14 @@ class SigninFragment : Fragment() {
     }
 
     private fun displayMsg(str: String){
-        //val appContext = context?.applicationContext ?: return
-        //Toast.makeText(appContext, str, Toast.LENGTH_LONG).show()
+        val appContext = context?.applicationContext ?: return
+        Toast.makeText(appContext, str, Toast.LENGTH_LONG).show()
         val errtxt = binding.errorTexts
         errtxt.text = str
         errtxt.visibility = View.VISIBLE
         Handler().postDelayed(Runnable { // hide your button here
             errtxt.visibility = View.GONE
         }, 2000)
+
     }
 }

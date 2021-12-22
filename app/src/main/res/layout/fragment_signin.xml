@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,177 +11,295 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.0"
     tools:context=".login.SigninFragment">
-
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingTop="16dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="16dp">
+        android:layout_height="722dp">
 
-        <EditText
-            android:id="@+id/emails"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="90dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/prompt_email"
-            android:inputType="textEmailAddress"
-            android:selectAllOnFocus="true"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="407dp"
+            android:layout_height="151dp"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/names"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/name"
-            android:inputType="text"
-            android:selectAllOnFocus="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emails" />
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="175dp"
+                android:layout_height="82dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_launcher_foreground"
+                app:tint="@color/purple_700"
+                tools:ignore="VectorDrawableCompat" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/surnames"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:hint="Surname"
-            android:imeActionLabel="@string/action_sign_in_short"
-            android:inputType="text"
-            android:selectAllOnFocus="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/names" />
-
-        <EditText
-            android:id="@+id/passwords"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/prompt_password"
-            android:imeActionLabel="@string/action_sign_in_short"
-            android:inputType="textPassword"
-            android:selectAllOnFocus="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/surnames" />
-
-        <EditText
-            android:id="@+id/password2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:hint="@string/confirm_password"
-            android:imeActionLabel="@string/action_sign_in_short"
-            android:inputType="textPassword"
-            android:selectAllOnFocus="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwords" />
-
-        <EditText
-            android:id="@+id/address"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:hint="Address"
-            android:imeActionLabel="@string/action_sign_in_short"
-            android:inputType="text"
-            android:selectAllOnFocus="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password2" />
-
-        <EditText
-            android:id="@+id/phone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:hint="Phone"
-            android:imeActionLabel="@string/action_sign_in_short"
-            android:imeOptions="actionDone"
-            android:inputType="phone"
-            android:selectAllOnFocus="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/address" />
-
-        <Button
-            android:id="@+id/signins"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="48dp"
-            android:enabled="true"
-            android:text="@string/action_sign_in"
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="407dp"
+            android:layout_height="491dp"
+            android:layout_marginStart="20dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.428"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/phone"
-            app:layout_constraintVertical_bias="0.2" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.0">
 
-        <Button
-            android:id="@+id/logins"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="8dp"
-            android:text="Log in"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signins"
-            app:layout_constraintVertical_bias="0.06" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/linearLayout0"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent">
 
-        <Button
-            android:id="@+id/errorTexts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:clickable="false"
-            android:text="Error"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="#FF0303"
-            android:textSize="20sp"
-            app:backgroundTint="#9C303F9F"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone" />
+                <EditText
+                    android:id="@+id/emails"
+                    android:layout_width="372dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:hint="Email"
+                    android:inputType="text"
+                    android:selectAllOnFocus="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="24dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/linearLayout1"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout0">
+
+                <EditText
+                    android:id="@+id/names"
+                    android:layout_width="372dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:hint="@string/name"
+                    android:inputType="text"
+                    android:selectAllOnFocus="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="384dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="0dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+                <EditText
+                    android:id="@+id/surnames"
+                    android:layout_width="372dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:hint="Surname"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:inputType="text"
+                    android:selectAllOnFocus="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                     />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="384dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="0dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+                <EditText
+                    android:id="@+id/passwords"
+                    android:layout_width="372dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:hint="@string/prompt_password"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:inputType="textPassword"
+                    android:selectAllOnFocus="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="384dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="0dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+                <EditText
+                    android:id="@+id/password2"
+                    android:layout_width="372dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:hint="@string/confirm_password"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:inputType="textPassword"
+                    android:selectAllOnFocus="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="384dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="0dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+                <EditText
+                    android:id="@+id/address"
+                    android:layout_width="372dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:hint="Address"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:inputType="text"
+                    android:selectAllOnFocus="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                   />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="384dp"
+                android:layout_height="61dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="0dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+                <EditText
+                    android:id="@+id/phone"
+                    android:layout_width="372dp"
+                    android:layout_height="51dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:hint="Phone"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionDone"
+                    android:inputType="phone"
+                    android:selectAllOnFocus="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="403dp"
+            android:layout_height="109dp"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.875"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_foreground"
-            app:tint="@color/purple_700"
-            tools:ignore="VectorDrawableCompat" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
+
+            <Button
+                android:id="@+id/signins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:enabled="true"
+                android:text="@string/action_sign_in"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phone"
+                app:layout_constraintVertical_bias="0.2" />
+
+            <Button
+                android:id="@+id/logins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Log in"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signins"
+                app:layout_constraintVertical_bias="0.06" />
+
+            <Button
+                android:id="@+id/errorTexts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:clickable="false"
+                android:text="Error"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#FF0303"
+                android:textSize="20sp"
+                app:backgroundTint="#9C303F9F"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone" />
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+
+    </ScrollView>
+
+</FrameLayout>
 

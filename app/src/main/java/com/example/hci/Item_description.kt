@@ -3,12 +3,14 @@ package com.example.hci
 
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.hci.databinding.FragmentItemDescriptionBinding
@@ -63,6 +65,7 @@ class Item_description : Fragment() {
                 val temp = "Qty: " + quantity.toString()
                 binding.itemQuantity.text =  temp
                 x.dismiss()
+                Toast.makeText( activity, "Item added", Toast.LENGTH_SHORT).show()
             }
         }
         val bundle_v = Bundle()
@@ -75,6 +78,7 @@ class Item_description : Fragment() {
             if (bundle != null) {
                 ldb?.add_to_cart(logged_user!!.id , bundle.getInt("id_vendor") ,
                     bundle.getString("title")!! , bundle.getString("price")!!.toFloat(),bundle.getInt("image"), quantity )
+                Toast.makeText( activity, "Item added", Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -13,12 +13,16 @@ import com.example.hci.listener.OnRecyclerViewCart
 import com.example.hci.logged_user
 import com.example.hci.model.Cart
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+
+
 
 /**
  * Adapter for the [RecyclerView] in [MainActivity]. Displays [Affirmation] data object.
  */
 class CartAdapter(
     private val listener: OnRecyclerViewCart
+
 ) : RecyclerView.Adapter<CartAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
@@ -41,6 +45,7 @@ class CartAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.cart_item_view, parent, false)
+
         return ItemViewHolder(adapterLayout)
     }
 
@@ -56,21 +61,30 @@ class CartAdapter(
             listener.totalPrizeCount(logged_user!!.id)
         }
         holder.remove_quantity.setOnClickListener{
+
             val remove_quantity_check = ldb?.adjustQuantity(dataset[position].uid,dataset[position].vid,dataset[position].ptitle,"remove")
             if(remove_quantity_check!! <= 0){
+                MaterialAlertDialogBuilder(holder.delete_button.context)
+                    .setTitle(R.string.alertTitle)
+                    .setMessage(R.string.alertMsg)
+                    .setNeutralButton(R.string.cancel) { dialog, which ->
+                        // Respond to neutral button press
+                    }
+                    .setPositiveButton("YES") { dialog, which ->
+                        ldb?.remove_from_cart(
+                            dataset[position].uid,
+                            dataset[position].vid,
+                        dataset[position].ptitle)
+                        dataset.removeAt(position)
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position, itemCount)
+                        if (dataset.isEmpty()) {
+                            listener.onRecyclerViewEmpty()
+                        }
+                    }
+                    .show()
 
-                ldb?.remove_from_cart(
-                    dataset[position].uid,
-                    dataset[position].vid,
-                    dataset[position].ptitle
 
-                )
-                dataset.removeAt(position)
-                notifyItemRemoved(position)
-                notifyItemRangeChanged(position, itemCount)
-                if (dataset.isEmpty()) {
-                    listener.onRecyclerViewEmpty()
-                }
             }
             else{
                 listener.totalPrizeCount(logged_user!!.id)
@@ -78,17 +92,28 @@ class CartAdapter(
             }
         }
         holder.delete_button.setOnClickListener {
-            ldb?.remove_from_cart(
-                dataset[position].uid,
-                dataset[position].vid,
-                dataset[position].ptitle
-            )
-            dataset.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position,itemCount)
-            if (dataset.isEmpty()) {
-                listener.onRecyclerViewEmpty()
-            }
+            MaterialAlertDialogBuilder(holder.delete_button.context)
+                .setTitle(R.string.alertTitle)
+                .setMessage(R.string.alertMsg)
+                .setNeutralButton(R.string.cancel) { dialog, which ->
+                    // Respond to neutral button press
+                }
+                .setPositiveButton(R.string.delete) { dialog, which ->
+                    // Respond to positive button press
+                    ldb?.remove_from_cart(
+                        dataset[position].uid,
+                        dataset[position].vid,
+                        dataset[position].ptitle
+                    )
+                    dataset.removeAt(position)
+                    notifyItemRemoved(position)
+                    notifyItemRangeChanged(position,itemCount)
+                    if (dataset.isEmpty()) {
+                        listener.onRecyclerViewEmpty()
+                    }
+                }
+                .show()
+
         }
     }
 

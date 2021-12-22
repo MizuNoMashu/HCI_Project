@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.hci.R
 import com.example.hci.databinding.FragmentProfileBinding
+
 import com.example.hci.ldb
 import com.example.hci.logged_user
 import java.io.ByteArrayOutputStream
@@ -81,7 +82,7 @@ class ProfileFragment : Fragment() {
             binding.nameEdit.isEnabled=true
             binding.surnameEdit.isEnabled=true
             binding.addressEdit.isEnabled =true
-            //binding.emaiEdit.isEnabled = true
+            //binding.emailEdit.isEnabled = true
             binding.phoneEdit.isEnabled=true
 
         }
@@ -92,14 +93,14 @@ class ProfileFragment : Fragment() {
                 showMsg("Surname")
             } else if (binding.addressEdit.text.toString() == ""){
                 showMsg("Address")
-            } else if (binding.phoneEdit.text.toString() == ""){
+            } else if (binding.phoneEdit.text.toString() == "") {
                 showMsg("Phone")
             } else{
                 saveData()
                 binding.nameEdit.isEnabled = false
                 binding.surnameEdit.isEnabled= false
                 binding.addressEdit.isEnabled =false
-                //binding.emaiEdit.isEnabled = false
+                //binding.emailEdit.isEnabled = false
                 binding.phoneEdit.isEnabled=false
             }
         }
@@ -124,7 +125,7 @@ class ProfileFragment : Fragment() {
         val nametext: String = binding.nameEdit.text.toString()
         val surnametext: String = binding.surnameEdit.text.toString()
         val addresstext: String = binding.addressEdit.text.toString()
-        //val emailtext: String = binding.emaiEdit.text.toString()
+        //val emailtext: String = binding.emailEdit.text.toString()
         val phonetext: String = binding.phoneEdit.text.toString()
         Log.d("saved Data:",nametext)
 
