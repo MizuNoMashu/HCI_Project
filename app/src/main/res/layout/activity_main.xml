@@ -6,6 +6,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     >
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="HCI"
+        app:menu="@menu/top_app_bar"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        />
+
 
     <fragment
         android:id="@+id/nav_host_fragment"
@@ -22,6 +31,8 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:itemIconTint="@drawable/bnv_item_color"
+        app:itemTextColor="@drawable/bnv_item_color"
         app:menu="@menu/bottom_navigation_menu"
         />
 </LinearLayout>

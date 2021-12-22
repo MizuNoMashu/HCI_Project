@@ -10,10 +10,12 @@
         android:id="@+id/cart"
         android:enabled="true"
         android:icon="@drawable/ic_sharp_shopping_cart_24"
-        android:title="Cart" />
+        android:title="Cart"
+        />
     <item
         android:id="@+id/settings"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_dehaze_24"
-        android:title="Settings"/>
+        android:title="Settings"
+        />
 </menu>

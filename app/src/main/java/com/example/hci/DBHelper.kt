@@ -1,6 +1,7 @@
 package com.example.hci
 
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.hci.model.*
@@ -323,7 +324,7 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
         val db = this.readableDatabase
         val messageList = ArrayList<String>()
         val cursor = db.rawQuery(
-            "SELECT * FROM '${table_message}' WHERE vid == '${message_vid}' AND uid == '${message_uid}' ORDER BY '${id_message}'",
+            "SELECT * FROM '${table_message}' WHERE vid == '${message_vid}' AND uid == '${message_uid}' ORDER BY $id_message",
             null
         )
         while (cursor.moveToNext()) {
@@ -388,7 +389,7 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
         val db = this.readableDatabase
         val prodList: MutableList<Product> = ArrayList()
         val cursor = db.rawQuery(
-            "SELECT * FROM '${table_product}' ORDER BY '${review_product}' DESC,'${rating_product}' DESC LIMIT 10",
+            "SELECT * FROM '${table_product}' ORDER BY $review_product DESC,$rating_product DESC LIMIT 10",
             null
         )
         var prod: Product
@@ -408,11 +409,58 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
         return prodList
     }
 
+    fun select_product_search(searchItem: String , type: Int): MutableList<Product> {
+        val db = this.readableDatabase
+        val prodList: MutableList<Product> = ArrayList()
+        var cursor: Cursor? = null
+        when(type){
+            0->{
+                cursor = db.rawQuery(
+                    "SELECT * FROM '${table_product}' WHERE $title_product LIKE '%${searchItem}%' ORDER BY $price_product ASC LIMIT 10",
+                    null
+                )
+            }
+            1->{
+                cursor = db.rawQuery(
+                    "SELECT * FROM '${table_product}' WHERE $title_product LIKE '%${searchItem}%' ORDER BY $price_product DESC LIMIT 10",
+                    null
+                )
+            }
+            2->{
+                cursor = db.rawQuery(
+                    "SELECT * FROM '${table_product}' WHERE $title_product LIKE '%${searchItem}%' ORDER BY $rating_product DESC , $price_product ASC LIMIT 10",
+                    null
+                )
+            }
+            3->{
+                cursor = db.rawQuery(
+                    "SELECT * FROM '${table_product}' WHERE $title_product LIKE '%${searchItem}%' ORDER BY $rating_product DESC LIMIT 10",
+                    null
+                )
+            }
+        }
+        var prod: Product
+        while (cursor!!.moveToNext()) {
+            prod = Product(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getFloat(3),
+                cursor.getInt(4),
+                cursor.getFloat(5),
+                cursor.getInt(6)
+            )
+            prodList.add(prod)
+        }
+        cursor.close()
+        return prodList
+    }
+
     fun select_product_by_vendor(vend: Int): MutableList<Product> {
         val db = this.readableDatabase
         val prodList: MutableList<Product> = ArrayList()
         val cursor = db.rawQuery(
-            "SELECT * FROM '${table_product}' WHERE id = ${vend} ORDER BY '${review_product}' DESC,'${rating_product}' DESC LIMIT 10",
+            "SELECT * FROM '${table_product}' WHERE id = ${vend} ORDER BY $review_product DESC,$rating_product DESC LIMIT 10",
             null
         )
         var prod: Product

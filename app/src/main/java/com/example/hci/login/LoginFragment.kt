@@ -14,6 +14,8 @@ import com.example.hci.databinding.FragmentLoginBinding
 import com.example.hci.ldb
 import com.example.hci.logged_user
 import com.example.hci.model.User
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class LoginFragment : Fragment() {
@@ -29,7 +31,9 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.GONE
+        activity?.findViewById<MaterialToolbar>(R.id.topAppBar)?.menu?.findItem(R.id.search)?.isVisible = false
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.menu?.findItem(R.id.home)?.isChecked = true
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -37,7 +41,6 @@ class LoginFragment : Fragment() {
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         if(logged_user != null) NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_scroll_products)
 
         val usernameEditText = binding.username
@@ -96,6 +99,7 @@ class LoginFragment : Fragment() {
         val appContext = context?.applicationContext ?: return
         //val toast0 = Toast.makeText(appContext, welcome, Toast.LENGTH_LONG)
         //toast0.show()
+        //activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.VISIBLE
         NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_scroll_products)
     }
 
