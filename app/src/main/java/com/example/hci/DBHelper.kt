@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.example.hci.model.*
 
 class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, null, 1) {
@@ -615,11 +616,18 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
         val cursor = db.rawQuery("SELECT * FROM '${table_pay}' WHERE email = '${pemail}'" , null)
         var pay : Payment
         while(cursor.moveToNext()){
-            pay = Payment(cursor.getString(2),cursor.getString(1),cursor.getString(3))
+            pay = Payment(cursor.getString(1),cursor.getString(2),cursor.getString(3))
             payList.add(pay)
         }
         cursor.close()
         return payList
+    }
+
+    fun remove_payment(nuemail: String, nnum: String){
+        val db = this.writableDatabase
+        val query = "DELETE FROM '${table_pay}' WHERE ${uemail_pay} = '${nuemail}' AND ${num_pay} = '${nnum}'"
+        Log.i("query", query)
+        db.execSQL(query)
     }
 
     companion object {

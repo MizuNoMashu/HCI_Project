@@ -47,4 +47,15 @@
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/cardimage"
         app:layout_constraintTop_toBottomOf="@+id/card_name" />
+
+    <ImageView
+        android:id="@+id/rmvpayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_delete"
+        app:tint="#000000" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hci.R
 import com.example.hci.databinding.MessagesBinding
 import com.example.hci.ldb
 import com.example.hci.logged_user
@@ -46,6 +48,7 @@ class Messages: Fragment() {
 
         _binding = MessagesBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        if(logged_user == null) NavHostFragment.findNavController(this).navigate(R.id.loginFragment)
         // inizio funzioni
         listview= binding.recyclerView
         sendBnt = binding.sendBtn

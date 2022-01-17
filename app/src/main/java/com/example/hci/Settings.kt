@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.contracts.contract
@@ -22,6 +23,7 @@ class Settings : Fragment() {
     ): View? {
         val inf = inflater.inflate(R.layout.fragment_settings, container, false)
         //val bundle = this.arguments
+        if(logged_user == null) NavHostFragment.findNavController(this).navigate(R.id.loginFragment)
         inf.findViewById<TextView>(R.id.nameUsr).text = logged_user?.name
         inf.findViewById<TextView>(R.id.emailusr).text = logged_user?.email
         val img = logged_user?.email?.let { ldb?.getImage(it) }

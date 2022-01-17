@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.example.hci.adapter.CartAdapter
 import com.example.hci.databinding.FragmentCartBinding
 import com.example.hci.listener.OnRecyclerViewCart
@@ -26,6 +27,7 @@ class CartFragment : Fragment() , OnRecyclerViewCart {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCartBinding.inflate(inflater,container,false)
+        if(logged_user == null) NavHostFragment.findNavController(this).navigate(R.id.loginFragment)
         val listCart: MutableList<Cart> = ldb!!.select_from_cart(logged_user!!.id)
         binding.goToShop.setOnClickListener {
             Navigation.findNavController(this.requireView()).navigate(R.id.action_cartFragment_to_scroll_products)

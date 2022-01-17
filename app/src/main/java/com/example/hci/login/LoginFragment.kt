@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,6 +52,8 @@ class LoginFragment : Fragment() {
         val signinButton = binding.signin
         val googleButton = binding.glogin
 
+        val eyeButton = binding.eye
+
         binding.errorText.visibility = View.GONE
 
         loginButton.setOnClickListener {
@@ -81,6 +85,17 @@ class LoginFragment : Fragment() {
         binding.frgpw.setOnClickListener {
             showDefaultDialog()
             //NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_scroll_products)
+        }
+
+        var eyeval = 0
+        eyeButton.setOnClickListener {
+            if(eyeval == 0){
+                passwordEditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                eyeval = 1
+            } else{
+                passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
+                eyeval = 0
+            }
         }
     }
 

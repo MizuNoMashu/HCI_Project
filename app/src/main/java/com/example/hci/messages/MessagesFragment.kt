@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.example.hci.R
 import com.example.hci.databinding.FragmentMessagesBinding
 import com.example.hci.ldb
@@ -33,6 +34,7 @@ class MessagesFragment : Fragment() {
     ): View? {
         _binding = FragmentMessagesBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        if(logged_user == null) NavHostFragment.findNavController(this).navigate(R.id.loginFragment)
 
         var listview= binding.listView
         val context: Context? = activity

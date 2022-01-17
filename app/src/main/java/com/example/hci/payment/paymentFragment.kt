@@ -71,7 +71,7 @@ class paymentFragment :Fragment(){
             }else if (binding.cardnum.text.toString() == ""){
                 showMsg("Card number")
             } else{
-                logged_user?.email?.let { it1 -> ldb?.insert_payment(it1, binding.cardname.text.toString(), binding.cardnum.text.toString(), month_val+"/"+year_val) }
+                logged_user?.email?.let { it1 -> ldb?.insert_payment(it1, binding.cardnum.text.toString(), binding.cardname.text.toString(), month_val+"/"+year_val) }
                 NavHostFragment.findNavController(this).navigate(R.id.action_paymentFragment_to_displayPaymentFragment)
             }
         }
