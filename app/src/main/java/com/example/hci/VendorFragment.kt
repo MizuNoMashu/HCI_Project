@@ -9,6 +9,8 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.hci.adapter.ItemAdapter
 import com.example.hci.databinding.FragmentVendorBinding
 import com.example.hci.model.Vendor
+import java.text.SimpleDateFormat
+import java.util.*
 
 class VendorFragment : Fragment() {
     private var _binding: FragmentVendorBinding? = null
@@ -49,7 +51,9 @@ class VendorFragment : Fragment() {
             if (t.toString() == "1"){
                 NavHostFragment.findNavController(this).navigate(R.id.messages, bundle_m)
             } else{
-                ldb?.insert_message(0,binding.venName.text.toString(), logged_user?.email.toString(),"Now we are friends, you can chat at all")
+                val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+                val currentDate = sdf.format(Date())
+                ldb?.insert_message(0,binding.venName.text.toString(), logged_user?.email.toString(),"Now we are friends, you can chat at all",currentDate.toString())
                 NavHostFragment.findNavController(this).navigate(R.id.messagesFragment, bundle_m)
             }
         }

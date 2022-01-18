@@ -29,5 +29,8 @@
     <string name="pay_Method">Pay Method</string>
     <string name="hi_my_message">Hi, my message</string>
     <string name="_12_00_pm">12:00 PM</string>
+    <string name="msgTime">12/01/2022 10:55:22</string>
+    <string name="serverTime">12/01/2022 10:55:22</string>
+    <string name="vendorTime">12/01/2022 10:55:22</string>
 
 </resources>

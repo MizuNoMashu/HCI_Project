@@ -12,6 +12,8 @@ import com.example.hci.adapter.CartAdapter
 import com.example.hci.databinding.FragmentCartBinding
 import com.example.hci.listener.OnRecyclerViewCart
 import com.example.hci.model.Cart
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 private const val ARG_PARAM1 = "param1"
@@ -46,7 +48,9 @@ class CartFragment : Fragment() , OnRecyclerViewCart {
             binding.goToShop.visibility = View.VISIBLE
         }
         binding.orderButton.setOnClickListener{
-            ldb?.insertOrder(logged_user!!.id)
+            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+            val currentDate = sdf.format(Date())
+            ldb?.insertOrder(logged_user!!.id,currentDate.toString())
             binding.itemCart.visibility = View.GONE
             binding.orderLayout.visibility = View.GONE
             binding.goToShop.visibility = View.VISIBLE

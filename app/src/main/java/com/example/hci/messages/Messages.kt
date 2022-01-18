@@ -16,6 +16,9 @@ import com.example.hci.R
 import com.example.hci.databinding.MessagesBinding
 import com.example.hci.ldb
 import com.example.hci.logged_user
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class Messages: Fragment() {
 
@@ -27,7 +30,9 @@ class Messages: Fragment() {
     private lateinit var sendBnt: Button
     private var listview: RecyclerView? = null
     var count:Int = 0
+    var timeCount:Int = 0
     var user:String ?= null
+    val timelist = mutableListOf<String>()
     val list = mutableListOf<String>()
     private lateinit var  recyclerView:RecyclerView
     private lateinit var layoutManager: LinearLayoutManager
@@ -55,6 +60,7 @@ class Messages: Fragment() {
 
         val bundle = this.arguments
         vendor = bundle?.getString("vendor")
+        binding.msgVendorName.setText(vendor)
         user = logged_user?.email
         recyclerView = binding.recyclerView
         initList()
@@ -65,6 +71,12 @@ class Messages: Fragment() {
             var message = binding.inputMessage.text
             list.add(message.toString())
             list.add("Waiting reply by vendor")
+
+            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+            val currentDate = sdf.format(Date())
+            timelist.add(currentDate.toString())
+            timelist.add(currentDate.toString())
+
             reload()
             binding.inputMessage.setText("")
             saveData(message)
@@ -85,7 +97,7 @@ class Messages: Fragment() {
     }
     private fun reload(){
         recyclerView.post{
-            adapter.reload(loadData())
+            adapter.reload(loadData(),loadTime())
         }
     }
     private fun loadData():MutableList<String>{
@@ -114,13 +126,45 @@ class Messages: Fragment() {
 
         return list
     }
+    private fun loadTime():MutableList<String>{
+
+        val tmList:  ArrayList<String>? = ldb?.load_time(vendor.toString(),user.toString())!!
+        val size = tmList?.size
+
+        while (timeCount<size!!){
+            val time = tmList.get(timeCount)
+            Log.d("reaload data: ",time!!)
+            val odd = timeCount % 2
+            when(odd){
+                0 ->{
+                    timelist.add(time)
+                    timeCount++
+                }
+                1 ->{
+                    timelist.add(time)
+                    timeCount++
+                }
+                else ->{
+                    timelist.add(time)
+                    timeCount++
+                }
+            }
+        }
+
+        return timelist
+    }
 
     private fun saveData(message: Editable?) {
         Log.d("called:","saveData")
-        ldb?.insert_message(count,vendor.toString(), logged_user?.email.toString(),message.toString())
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
+        ldb?.insert_message(count,vendor.toString(), logged_user?.email.toString(),message.toString(), currentDate.toString())
         count++
-        ldb?.insert_message(count,vendor.toString(), logged_user?.email.toString(),"Waiting reply by vendor")
+        timeCount++
+        ldb?.insert_message(count,vendor.toString(), logged_user?.email.toString(),"Waiting reply by vendor",currentDate.toString())
         count++
+        timeCount++
+        Log.d("called:","fine saveData")
     }
 
     override fun onDestroyView() {

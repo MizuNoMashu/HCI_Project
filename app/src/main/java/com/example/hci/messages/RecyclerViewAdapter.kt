@@ -12,7 +12,7 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     private var list:MutableList<String> = mutableListOf()
-
+    private var timelist:MutableList<String> = mutableListOf()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -38,10 +38,12 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when(holder){
             is UserRecyclerViewHolder -> {
                 holder.contentA = list[position]
+                holder.timeA = timelist[position]
                 holder.updateView()
             }
             is ServerRecyclerViewHolder -> {
                 holder.contentB= list[position]
+                holder.timeB = timelist[position]
                 holder.updateView()
             }
         }
@@ -59,9 +61,11 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             else -> ViewHolderType.TYPE_A.ordinal
         }
     }
-    fun reload(list: MutableList<String>){
+    fun reload(list: MutableList<String>,timelist: MutableList<String>){
         this.list.clear()
         this.list.addAll(list)
+        this.timelist.clear()
+        this.timelist.addAll(timelist)
         notifyDataSetChanged()
     }
 

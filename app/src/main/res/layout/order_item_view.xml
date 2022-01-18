@@ -28,6 +28,7 @@
         android:paddingLeft="5dp"
         android:text="title"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/ordertime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_order"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,6 +37,7 @@
         android:id="@+id/quantity_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="24dp"
         android:text="Quantity:  "
         android:paddingStart="5dp"
 
@@ -49,17 +51,33 @@
         android:text="8"
         app:layout_constraintStart_toEndOf="@id/quantity_text"
         app:layout_constraintTop_toBottomOf="@+id/name_order"/>
+
     <TextView
+        android:id="@+id/ordertime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="1dp"
+        android:text="@string/vendorTime"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/quantity"
+        app:layout_constraintTop_toBottomOf="@+id/name_order" />
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
         android:text="Ordine in attesa di conferma"
-        android:textSize="24sp"
         android:textColor="#4CAF50"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quantity" />
+        app:layout_constraintTop_toBottomOf="@+id/ordertime" />
 
 
 

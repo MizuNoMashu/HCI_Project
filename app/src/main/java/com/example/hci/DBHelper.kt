@@ -72,6 +72,7 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
                 "'${ptitle_order}' TEXT NOT NULL," +
                 "'${pimage_order}' INTEGER NOT NULL," +
                 "'${quantity_order}' INTEGER NOT NULL," +
+                "'${time_order}' TEXT NOT NULL," +
                 "FOREIGN KEY (${uid_order}) REFERENCES '${table_user}' (${id_user})," +
                 "FOREIGN KEY (${vid_order},${ptitle_order}) REFERENCES '${table_product}' (${vid_product},${title_product}))"
 
@@ -82,6 +83,7 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
                 "'${vid_message}' TEXT NOT NULL," +
                 "'${uid_message}' TEXT NOT NULL," +
                 "'${message}' TEXT NOT NULL," +
+                "'${time_message}' TEXT NOT NULL,"+
                 "FOREIGN KEY (${vid_message}) REFERENCES '${table_vendor}' (${name_vendor})," +
                 "FOREIGN KEY (${uid_message}) REFERENCES '${table_user}' (${email_user})," +
                 "PRIMARY KEY (${id_message} ,${vid_message},${uid_message}))"
@@ -224,7 +226,7 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
 
     }
 
-    fun insertOrder(uid: Int): Int {
+    fun insertOrder(uid: Int,  time: String): Int {
         val cart: MutableList<Cart> = ldb?.select_from_cart(uid)!!
         val iterator = cart.listIterator()
         while (iterator.hasNext()) {
@@ -238,7 +240,7 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
                 db = this.writableDatabase
                 select.moveToFirst()
                 val real_quantity = select.getInt(0) + temp.quantity
-                val update = "UPDATE '${table_order}' SET $quantity_order = '${real_quantity}'  " +
+                val update = "UPDATE '${table_order}' SET $quantity_order = '${real_quantity}' , $time_order = '${time}'" +
                         "WHERE $uid_order = '${uid}' AND $vid_order = '${temp.vid}' AND $ptitle_order = '${temp.ptitle}';"
                 try {
                     db.execSQL(update)
@@ -250,8 +252,8 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
             } else {
                 db = this.writableDatabase
                 db.execSQL(
-                    "INSERT INTO '${table_order}'  ('${uid_order}','${vid_order}','${ptitle_order}','${pimage_order}','${quantity_order}') VALUES" +
-                            "('${temp.uid}','${temp.vid}','${temp.ptitle}','${temp.pimage}','${temp.quantity}')"
+                    "INSERT INTO '${table_order}'  ('${uid_order}','${vid_order}','${ptitle_order}','${pimage_order}','${quantity_order}','${time_order}') VALUES" +
+                            "('${temp.uid}','${temp.vid}','${temp.ptitle}','${temp.pimage}','${temp.quantity}','${time}')"
                 )
             }
             ldb?.remove_from_cart(temp.uid,temp.vid,temp.ptitle)
@@ -270,7 +272,8 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
                 cursor.getInt(1),
                 cursor.getString(2),
                 cursor.getInt(3),
-                cursor.getInt(4)
+                cursor.getInt(4),
+                cursor.getString(5)
             )
             orderList.add(order)
         }
@@ -308,11 +311,12 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
         message_vid: String,
         message_uid: String,
         messages: String,
+        message_time: String,
     ): Int {
         val db = this.writableDatabase
         val query =
-            "INSERT INTO '${table_message}' ('${id_message}', '${vid_message}','${uid_message}',  '${message}')VALUES " +
-                    "('${message_id}', '${message_vid}', '${message_uid}', '${messages}')"
+            "INSERT INTO '${table_message}' ('${id_message}', '${vid_message}','${uid_message}',  '${message}' , '${time_message}')VALUES " +
+                    "('${message_id}', '${message_vid}', '${message_uid}', '${messages}' , '${message_time}')"
         try {
             db.execSQL(query)
         } catch (e: Exception) {
@@ -334,6 +338,20 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
         }
 
         return messageList
+    }
+    fun load_time(message_vid: String, message_uid: String): ArrayList<String> {
+        val db = this.readableDatabase
+        val timeList = ArrayList<String>()
+        val cursor = db.rawQuery(
+            "SELECT * FROM '${table_message}' WHERE vid == '${message_vid}' AND uid == '${message_uid}' ORDER BY $id_message",
+            null
+        )
+        while (cursor.moveToNext()) {
+            val times = cursor.getString(4)
+            timeList.add(times)
+        }
+
+        return timeList
     }
 
 
@@ -671,6 +689,7 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
         private const val vid_message = "vid"
         private const val uid_message = "uid"
         private const val message = "messages"
+        private const val time_message = "msgtime"
 
         private const val table_order = "order"
         private const val uid_order = "uid"
@@ -678,6 +697,7 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
         private const val ptitle_order = "title"
         private const val pimage_order = "image"
         private const val quantity_order = "quantity"
+        private const val time_order = "timeOrder"
 
         private const val table_pay = "payment"
         private const val uemail_pay = "email"

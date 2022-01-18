@@ -20,7 +20,9 @@ class OrderAdapter ( private val dataset: MutableList<Order>
                 val item_name: TextView = view.findViewById(R.id.name_order)
                 val item_image: ImageView = view.findViewById(R.id.image_order)
                 val quantity: TextView = view.findViewById(R.id.quantity)
+                val time: TextView = view.findViewById(R.id.ordertime)
 
+                time.text = "added: "+order.time
                 item_name.text = order.ptitle
                 item_image.setImageResource(order.pimage)
                 quantity.text = order.pquantity.toString()

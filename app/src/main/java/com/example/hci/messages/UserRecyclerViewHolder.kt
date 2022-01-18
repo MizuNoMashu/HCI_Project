@@ -10,18 +10,21 @@ import java.lang.ref.WeakReference
 class UserRecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     private var view:WeakReference<View> = WeakReference(itemView)
     private var nameView:TextView?=null
+    private var textView:TextView?=null
     private var msgView: TextView?=null
 
     var contentA=""
+    var timeA = ""
     init {
         findView()
     }
     private fun findView(){
-        nameView = view.get()?.findViewById(R.id.msgName)
+        textView = view.get()?.findViewById(R.id.msgTime)
         msgView  = view.get()?.findViewById(R.id.msgMessage)
     }
 
     fun updateView(){
         msgView?.text = contentA
+        textView?.text = timeA
     }
 }
