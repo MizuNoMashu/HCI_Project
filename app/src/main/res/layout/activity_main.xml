@@ -12,6 +12,8 @@
         android:layout_height="?attr/actionBarSize"
         app:title="HCI"
         app:menu="@menu/top_app_bar"
+        app:navigationIcon="@drawable/back_img"
+        app:navigationIconTint="?colorOnPrimary"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
         />
 

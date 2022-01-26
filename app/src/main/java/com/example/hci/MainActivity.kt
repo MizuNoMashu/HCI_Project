@@ -2,6 +2,7 @@ package com.example.hci
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -31,11 +32,11 @@ class MainActivity : AppCompatActivity() {
         ldb?.insert_vendor("apple", "Sells electronics devices", "4.7/5", R.drawable.apple_logo)
         ldb?.insert_vendor("Facebook", "Social network", "4.1/5", R.drawable.facebook_logo)
         ldb?.insert_vendor("xiaomi", "Sells electronics devices", "4.5/5", R.drawable.xiaomi_logo)
-        ldb?.insert_product(1 , "pisello marrone con rivestimento di cioccolato al caramello",
+        ldb?.insert_product(1 , "Oggetto1",
             "un oggetto bellissimo" , 4000F,10000, 5F,  R.drawable.image1)
-        ldb?.insert_product(1,"pisello marrone con rivestimento di cioccolato al caramello e pistacchio panna briciole adsalskalskalskalskalkslask",
+        ldb?.insert_product(1,"Oggetto2",
             "un oggetto poco bello" , 400F, 10000 , 5F, R.drawable.image1)
-        ldb?.insert_product(2,"pisello marrone con rivestimento di cioccolato al caramello e pistacchio panna briciole adsalskalskalskalskalkslask",
+        ldb?.insert_product(2,"Oggetto3",
             "un oggetto poco bello" , 80F, 1120 , 3.4F, R.drawable.image1)
 
         
@@ -57,6 +58,9 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
+        mainBinding.topAppBar.setNavigationOnClickListener {
+            onBackPressed();
+        }
 
         val searchItem = mainBinding.topAppBar.menu?.findItem(R.id.search)
         val searchView = searchItem?.actionView as SearchView

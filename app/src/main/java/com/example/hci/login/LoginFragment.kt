@@ -2,6 +2,7 @@ package com.example.hci.login
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.graphics.Paint
 import android.os.Bundle
 import android.os.Handler
 import android.text.method.HideReturnsTransformationMethod
@@ -55,6 +56,7 @@ class LoginFragment : Fragment() {
         val eyeButton = binding.eye
 
         binding.errorText.visibility = View.GONE
+        binding.frgpw.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG)
 
         loginButton.setOnClickListener {
             val ret = ldb?.select_user(usernameEditText.text.toString())

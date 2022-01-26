@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_foreground"
-        app:tint="@color/purple_700"
+        app:tint="?colorPrimary"
         tools:ignore="VectorDrawableCompat" />
 
     <EditText
