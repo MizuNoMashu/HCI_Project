@@ -24,19 +24,20 @@
             android:paddingRight="16dp"
             android:paddingBottom="16dp">
 
-            <ImageView
+            <TextView
                 android:id="@+id/logo"
-                android:layout_width="175dp"
-                android:layout_height="82dp"
-                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:scaleType="centerCrop"
+                android:fontFamily="casual"
+                android:text="EasyBuy"
+                android:textAlignment="center"
+                android:textColor="?colorPrimary"
+                android:textSize="36sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_launcher_foreground"
-                app:tint="?colorPrimary"
-                tools:ignore="VectorDrawableCompat" />
+                />
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -252,7 +253,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="#FF0303"
                 android:textSize="20sp"
-                app:backgroundTint="#9C303F9F"
+                app:backgroundTint="?colorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

@@ -63,13 +63,19 @@ class SigninFragment : Fragment() {
             val phoneText = phoneEditText.text.toString()
 
             if(!emailText.contains("@") || emailText == ""){
-               // showInvalidEmail()
+               showInvalidEmail()
             } else if(nameText == ""){
                 showInvalidName()
-            } else if(passwordText.length < 5 || password2Text.length < 5){
+            } else if(surnameText == ""){
+                showInvalidSurname()
+            } else if(passwordText.length < 5){
                 showInvalidPassword()
             } else if (passwordText != password2Text){
                 showPasswordMismatch()
+            } else if(addressText == ""){
+                showInvalidAddress()
+            } else if(phoneText == ""){
+                showInvalidPhone()
             } else {
                 val ret = ldb?.insert_user(emailText, nameText, surnameText, passwordText, addressText, phoneText)
                 if(ret == 0){
@@ -97,6 +103,10 @@ class SigninFragment : Fragment() {
         displayMsg("Name can't be empty")
     }
 
+    private fun showInvalidSurname(){
+        displayMsg("Surname can't be empty")
+    }
+
     private fun showInvalidPassword(){
         displayMsg("Password must have min 5 char")
     }
@@ -104,6 +114,13 @@ class SigninFragment : Fragment() {
     private fun showPasswordMismatch(){
         displayMsg("Passwords don't coincide")
     }
+    private fun showInvalidAddress(){
+        displayMsg("Address can't be empty")
+    }
+    private fun showInvalidPhone(){
+        displayMsg("Phone can't be empty")
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -111,8 +128,8 @@ class SigninFragment : Fragment() {
     }
 
     private fun displayMsg(str: String){
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, str, Toast.LENGTH_LONG).show()
+        //val appContext = context?.applicationContext ?: return
+        //Toast.makeText(appContext, str, Toast.LENGTH_LONG).show()
         val errtxt = binding.errorTexts
         errtxt.text = str
         errtxt.visibility = View.VISIBLE

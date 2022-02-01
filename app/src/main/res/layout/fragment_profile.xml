@@ -17,12 +17,16 @@
             android:paddingRight="16dp"
             android:paddingBottom="16dp">
 
-            <LinearLayout
+            <TextView
                 android:id="@+id/scrollView1"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/ic_baseline_home_24"
-                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="casual"
+                android:text="EasyBuy"
+                android:textAlignment="center"
+                android:textColor="?colorPrimary"
+                android:textSize="90sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,14 +37,16 @@
                 android:id="@+id/image_view"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
+                android:layout_marginTop="24dp"
                 android:background="#BAA9A9"
                 android:maxHeight="30dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_baseline_home_24"
-                app:layout_constraintBottom_toBottomOf="@+id/scrollView1"
-                app:layout_constraintEnd_toEndOf="@+id/scrollView1"
-                app:layout_constraintStart_toStartOf="@+id/scrollView1"
-                app:layout_constraintTop_toTopOf="@+id/scrollView1" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <Button
                 android:id="@+id/img_pick_btn"
@@ -54,7 +60,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/scrollView1"
+                app:layout_constraintTop_toBottomOf="@+id/image_view"
                 app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -196,7 +202,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="#FF0303"
                 android:textSize="20sp"
-                app:backgroundTint="#9C303F9F"
+                app:backgroundTint="?colorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
