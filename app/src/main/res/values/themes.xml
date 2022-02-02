@@ -1,9 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <attr name="color3" format="reference|color" />
+    <attr name="color3dark" format="reference|color" />
     <!-- Base application theme. -->
     <style name="Theme.HCI" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#FF9800</item>
-        <item name="colorPrimaryVariant">#FF5722</item>
+        <item name="colorPrimaryVariant">#202C77</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#FFA66B</item>
@@ -12,6 +14,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="color3">#303F9F</item>
+        <item name="color3dark">#FF5722</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.MyApp.MaterialCardView" parent="">

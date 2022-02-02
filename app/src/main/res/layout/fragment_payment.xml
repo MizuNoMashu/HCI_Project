@@ -15,11 +15,16 @@
     android:paddingBottom="16dp"
     tools:context=".payment.paymentFragment">
 
-    <ImageView
+    <TextView
         android:id="@+id/logo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="casual"
+        android:text="EasyBuy"
+        android:textAlignment="center"
+        android:textColor="?colorPrimary"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
