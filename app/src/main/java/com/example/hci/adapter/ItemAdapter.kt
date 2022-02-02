@@ -34,11 +34,13 @@ class ItemAdapter(
             val bundle = Bundle()
 
             bundle.putString("title" , prod.title)
+            bundle.putString("description", prod.description)
             bundle.putFloat("stars", prod.rating)
             bundle.putString("reviews",prod.review.toString())
             bundle.putString("price", prod.price.toString())
             bundle.putInt("image", prod.image)
             bundle.putInt("id_vendor", prod.id)
+
 
             this.itemView.setOnClickListener(
                 Navigation.createNavigateOnClickListener(R.id.item_description , bundle)

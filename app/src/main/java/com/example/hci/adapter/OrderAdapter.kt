@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -26,6 +28,11 @@ class OrderAdapter ( private val dataset: MutableList<Order>
                 item_name.text = order.ptitle
                 item_image.setImageResource(order.pimage)
                 quantity.text = order.pquantity.toString()
+                view.findViewById<RatingBar>(R.id.stars).setOnRatingBarChangeListener(object : RatingBar.OnRatingBarChangeListener {
+                    override fun onRatingChanged(p0: RatingBar?, p1: Float, p2: Boolean) {
+                        Toast.makeText( view.context , "Given rating is: $p1", Toast.LENGTH_SHORT).show()
+                    }
+                })
             }
         }
 

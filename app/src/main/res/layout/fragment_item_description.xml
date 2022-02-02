@@ -120,6 +120,25 @@
                 android:text="Add to cart"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+            <TextView
+                android:id="@+id/description_fixed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description:"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/add_to_cart"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/description_fixed"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

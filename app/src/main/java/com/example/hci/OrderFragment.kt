@@ -30,6 +30,7 @@ class OrderFragment : Fragment() {
             val recyclerView = binding.itemOrder
             recyclerView.setDivider(R.drawable.recycler_view_divider)
             recyclerView.adapter = OrderAdapter( listOrder )
+
         }
         else{
 

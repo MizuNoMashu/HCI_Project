@@ -3,7 +3,6 @@ package com.example.hci
 
 import android.graphics.Paint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +38,7 @@ class Item_description : Fragment() {
             binding.price.text = bundle.getString("price")
             binding.itemImage.setImageResource(bundle.getInt("image"))
             binding.stars.rating = bundle.getFloat("stars")
+            binding.description.text = bundle.getString("description")
             binding.vendorName.text = ldb?.select_vendor(bundle.getInt("id_vendor"))?.name
             binding.vendorName.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG)
         }
