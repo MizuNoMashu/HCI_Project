@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_settings_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_settings_to_messageback"
+            app:destination="@id/messageback" />
     </fragment>
     <fragment
         android:id="@+id/profile"
@@ -208,5 +211,13 @@
         <action
             android:id="@+id/action_searchFragment_to_settings"
             app:destination="@id/settings" />
+    </fragment>
+    <fragment
+        android:id="@+id/messageback"
+        android:name="com.example.hci.messages.Messageback"
+        android:label="Messageback" >
+        <action
+            android:id="@+id/action_messageback_to_scroll_products"
+            app:destination="@id/scroll_products" />
     </fragment>
 </navigation>

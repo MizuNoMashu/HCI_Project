@@ -120,7 +120,17 @@ class DBHelper(var context: Context) : SQLiteOpenHelper(context, database_name, 
         }
         return messageList
     }
-
+    fun verify_message(): Int {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT * FROM '${table_message}'",
+            null
+        )
+        if (cursor.moveToNext())
+            return 1
+        else
+            return 0
+    }
     fun verify_contact(message_vid: String): Int {
         val db = this.readableDatabase
         val cursor = db.rawQuery(

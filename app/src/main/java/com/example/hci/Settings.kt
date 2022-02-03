@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +39,13 @@ class Settings : Fragment() {
         }
 
         inf.findViewById<MaterialButton>(R.id.button_messages).setOnClickListener {
-            Navigation.findNavController(inf).navigate(R.id.action_settings_to_messagesFragment)
+            var verifymessage = ldb?.verify_message()
+
+            if (verifymessage.toString() !="1") {
+                Log.d("TAG","verifymessage:called ")
+                Navigation.findNavController(inf).navigate(R.id.action_settings_to_messageback)
+            }else{
+            Navigation.findNavController(inf).navigate(R.id.action_settings_to_messagesFragment)}
         }
 
         inf.findViewById<MaterialButton>(R.id.logout_button).setOnClickListener {
