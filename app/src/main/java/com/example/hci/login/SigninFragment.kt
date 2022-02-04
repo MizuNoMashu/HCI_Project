@@ -2,6 +2,8 @@ package com.example.hci.login
 
 import android.os.Bundle
 import android.os.Handler
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,6 +52,9 @@ class SigninFragment : Fragment() {
         val signinButton = binding.signins
         val loginButton = binding.logins
 
+        val eyepButton = binding.eyep
+        val eyerButton = binding.eyer
+
         binding.errorTexts.visibility = View.GONE
 
         signinButton.setOnClickListener {
@@ -88,6 +93,28 @@ class SigninFragment : Fragment() {
         }
         loginButton.setOnClickListener {
             NavHostFragment.findNavController(this).navigate(R.id.action_signinFragment_to_loginFragment)
+        }
+
+        var eyevalp = 0
+        eyepButton.setOnClickListener {
+            if(eyevalp == 0){
+                passwordEditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                eyevalp = 1
+            } else{
+                passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
+                eyevalp = 0
+            }
+        }
+
+        var eyevalr = 0
+        eyerButton.setOnClickListener {
+            if(eyevalr == 0){
+                password2EditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                eyevalr = 1
+            } else{
+                password2EditText.transformationMethod = PasswordTransformationMethod.getInstance()
+                eyevalr = 0
+            }
         }
     }
 
