@@ -45,7 +45,7 @@ class MessagesFragment : Fragment() {
         var count:Int = 0
         while (count < size!! ){   //size not null
             val vendorName = vendorList[count]
-            list.add(Model(vendorName, "$vendorName description", R.drawable.meinv))
+            list.add(Model(vendorName, "$vendorName description", R.drawable.ic_baseline_email_24))
             count++
             //let the message visible
             listview.adapter = context?.let { MyAdapter(it,R.layout.list_item,list) }

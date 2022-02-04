@@ -21,12 +21,10 @@ class MyAdapter(var mCtx: Context, var resources:Int, var items:List<Model>) :Ar
 
         val imageView: ImageView=view.findViewById(R.id.profileImage)
         val titleTextView: TextView = view.findViewById(R.id.personName)
-        val descriptionTextView:TextView = view.findViewById(R.id.personDescription)
 
         var mItem:Model = items[position]
         imageView.setImageDrawable(mCtx.resources.getDrawable(mItem.img))
         titleTextView.text = mItem.title
-        descriptionTextView.text = mItem.description
 
         return view
     }

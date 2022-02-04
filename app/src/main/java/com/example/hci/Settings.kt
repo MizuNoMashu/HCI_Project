@@ -45,8 +45,7 @@ class Settings : Fragment() {
                 Log.d("TAG","verifymessage:called ")
                 Navigation.findNavController(inf).navigate(R.id.action_settings_to_messageback)
             }else{
-            Navigation.findNavController(inf).navigate(R.id.action_settings_to_messagesFragment)}
-        }
+                Navigation.findNavController(inf).navigate(R.id.action_settings_to_messagesFragment)}        }
 
         inf.findViewById<MaterialButton>(R.id.logout_button).setOnClickListener {
             val context: Context? = activity
