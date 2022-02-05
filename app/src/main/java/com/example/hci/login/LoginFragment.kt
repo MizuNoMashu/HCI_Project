@@ -10,6 +10,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.hci.R
@@ -94,9 +95,13 @@ class LoginFragment : Fragment() {
             if(eyeval == 0){
                 passwordEditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 eyeval = 1
+                context?.let { it1 -> ContextCompat.getColor(it1, R.color.primary) }
+                    ?.let { it2 -> eyeButton.setColorFilter(it2, android.graphics.PorterDuff.Mode.SRC_IN) };
             } else{
                 passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
                 eyeval = 0
+                context?.let { it1 -> ContextCompat.getColor(it1, R.color.black) }
+                    ?.let { it2 -> eyeButton.setColorFilter(it2, android.graphics.PorterDuff.Mode.SRC_IN) };
             }
         }
     }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.hci.R
@@ -100,9 +101,13 @@ class SigninFragment : Fragment() {
             if(eyevalp == 0){
                 passwordEditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 eyevalp = 1
+                context?.let { it1 -> ContextCompat.getColor(it1, R.color.primary) }
+                    ?.let { it2 -> eyepButton.setColorFilter(it2, android.graphics.PorterDuff.Mode.SRC_IN) };
             } else{
                 passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
                 eyevalp = 0
+                context?.let { it1 -> ContextCompat.getColor(it1, R.color.black) }
+                    ?.let { it2 -> eyepButton.setColorFilter(it2, android.graphics.PorterDuff.Mode.SRC_IN) };
             }
         }
 
@@ -111,9 +116,13 @@ class SigninFragment : Fragment() {
             if(eyevalr == 0){
                 password2EditText.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 eyevalr = 1
+                context?.let { it1 -> ContextCompat.getColor(it1, R.color.primary) }
+                    ?.let { it2 -> eyerButton.setColorFilter(it2, android.graphics.PorterDuff.Mode.SRC_IN) };
             } else{
                 password2EditText.transformationMethod = PasswordTransformationMethod.getInstance()
                 eyevalr = 0
+                context?.let { it1 -> ContextCompat.getColor(it1, R.color.black) }
+                    ?.let { it2 -> eyerButton.setColorFilter(it2, android.graphics.PorterDuff.Mode.SRC_IN) };
             }
         }
     }
