@@ -70,8 +70,13 @@ class ProfileFragment : Fragment() {
         }
         val getImage = registerForActivityResult(ActivityResultContracts.GetContent(),
             ActivityResultCallback {
-                binding.imageView.setImageURI(it)
-                saveImage()
+                if (it == null) {
+                    //Display an error
+                    Log.d("called:","back")
+                }else{
+                    binding.imageView.setImageURI(it)
+                    saveImage()
+                }
             })
 
         button.setOnClickListener{
