@@ -84,7 +84,7 @@
                     android:layout_centerVertical="true"
                     android:ems="10"
                     android:enabled="false"
-                    android:hint="Username" />
+                    android:hint="Surname" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

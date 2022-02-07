@@ -58,6 +58,7 @@ class ProfileFragment : Fragment() {
         val root: View = binding.root
         // inizio funzioni
         binding.errorTextp.visibility = View.GONE
+        binding.done.visibility = View.GONE
         loadData()
 
         imageView = binding.imageView
@@ -78,7 +79,10 @@ class ProfileFragment : Fragment() {
             // getAction.launch(intent)
             getImage.launch("image/*")
         }
+
         binding.edit.setOnClickListener{
+            binding.edit.visibility = View.GONE
+            binding.done.visibility = View.VISIBLE
             binding.nameEdit.isEnabled=true
             binding.surnameEdit.isEnabled=true
             binding.addressEdit.isEnabled =true
@@ -96,6 +100,8 @@ class ProfileFragment : Fragment() {
             } else if (binding.phoneEdit.text.toString() == "") {
                 showMsg("Phone")
             } else{
+                binding.edit.visibility = View.VISIBLE
+                binding.done.visibility = View.GONE
                 saveData()
                 binding.nameEdit.isEnabled = false
                 binding.surnameEdit.isEnabled= false
@@ -147,12 +153,13 @@ class ProfileFragment : Fragment() {
             val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
             binding.imageView.setImageBitmap(decodedImage)
         }
+        val usr = logged_user?.email?.let { ldb?.select_user(it) }
 
-        binding.nameEdit.setText(logged_user?.name)
-        binding.surnameEdit.setText(logged_user?.surname)
-        binding.addressEdit.setText(logged_user?.address)
-        //binding.emaiEdit.setText(logged_user?.email)
-        binding.phoneEdit.setText(logged_user?.phone)
+        binding.nameEdit.setText(usr?.name)
+        binding.surnameEdit.setText(usr?.surname)
+        binding.addressEdit.setText(usr?.address)
+        //binding.emaiEdit.setText(usr?.email)
+        binding.phoneEdit.setText(usr?.phone)
     }
 
     private fun displayMsg(str: String){
