@@ -25,8 +25,10 @@ class Settings : Fragment() {
         val inf = inflater.inflate(R.layout.fragment_settings, container, false)
         //val bundle = this.arguments
         if(logged_user == null) NavHostFragment.findNavController(this).navigate(R.id.loginFragment)
-        inf.findViewById<TextView>(R.id.nameUsr).text = logged_user?.name
-        inf.findViewById<TextView>(R.id.emailusr).text = logged_user?.email
+        val usr = logged_user?.email?.let { ldb?.select_user(it) }
+
+        inf.findViewById<TextView>(R.id.nameUsr).text = usr?.name
+        inf.findViewById<TextView>(R.id.emailusr).text = usr?.email
         val img = logged_user?.email?.let { ldb?.getImage(it) }
         if (img != null) {
             val imageBytes = Base64.decode(img, Base64.DEFAULT)

@@ -40,7 +40,7 @@ class SigninFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (logged_user != null) NavHostFragment.findNavController(this)
-            .navigate(R.id.action_loginFragment_to_scroll_products)
+            .navigate(R.id.scroll_products)
 
         val emailEditText = binding.emails
         val nameEditText = binding.names

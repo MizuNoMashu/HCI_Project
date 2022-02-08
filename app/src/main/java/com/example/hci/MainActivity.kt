@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         ldb = DBHelper(this)
 
-        ldb?.insert_user("ciao@ok.oi", "Giacomino", "Prova", "ciaociao", "via prova 123", "33344455566")
+        ldb?.insert_user("ciao@ok.oi", "Giacomo", "Rossi", "prova", "viale della liberazione 123", "33344455566")
         ldb?.insert_vendor("apple", "Sells electronics devices", "4.7/5", R.drawable.apple_logo)
         ldb?.insert_vendor("Facebook", "Social network", "4.1/5", R.drawable.facebook_logo)
         ldb?.insert_vendor("xiaomi", "Sells electronics devices", "4.5/5", R.drawable.xiaomi_logo)

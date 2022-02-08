@@ -78,7 +78,7 @@ class LoginFragment : Fragment() {
             if(ret == null){
                 showLoginFailed()
             } else{
-                if("ciaociao" == ret.password){
+                if("prova" == ret.password){
                     updateUiWithUser(ret)
                 }
                 else showLoginFailed()
