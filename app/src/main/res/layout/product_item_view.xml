@@ -50,7 +50,10 @@
             android:id="@+id/item_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:maxWidth="150dp"
+            android:maxHeight="150dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_launcher_background" />
 
         <!-- Buttons -->

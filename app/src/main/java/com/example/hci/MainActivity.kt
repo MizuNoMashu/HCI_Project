@@ -32,9 +32,15 @@ class MainActivity : AppCompatActivity() {
         ldb?.insert_vendor("Facebook", "Social network", "4.1/5", R.drawable.facebook_logo)
         ldb?.insert_vendor("xiaomi", "Sells electronics devices", "4.5/5", R.drawable.xiaomi_logo)
         ldb?.insert_product(1 , "Ipad",
-            "A nice Ipad" , 400F,10000, 3F,  R.drawable.ipad)
+            "A nice Ipad" , 400F,100, 3F,  R.drawable.ipad)
+        ldb?.insert_product(1 , "Airpods",
+            "Beautiful headphones." , 290F,1000, 4.5F,  R.drawable.airpods)
+        ldb?.insert_product(1 , "MacBook",
+            "A nice laptop" , 1500F,50, 5F,  R.drawable.macbook)
         ldb?.insert_product(3,"Electric Scooter",
             "A powerful electric scooter" , 4000F, 1000 , 5F, R.drawable.monopattino)
+        ldb?.insert_product(3,"Mi11",
+            "A powerful phone" , 600F, 200 , 4.5F, R.drawable.mi11)
 
 
         
